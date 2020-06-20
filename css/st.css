@@ -7,4 +7,24 @@ body {
 header {
   height: 100px;
   background-color: #f4f4f4;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+header .btns {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+header .btns .btn {
+  display: inline-block;
+  padding: 5px;
+  margin: 2px;
+  border-radius: 5px;
+  background-color: #186fca;
+  color: #fff;
+  font-weight: bolder;
 }
