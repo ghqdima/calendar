@@ -8,8 +8,16 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  padding-bottom: 20px;
   width: 90%;
+}
+
+main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 header {
@@ -19,13 +27,17 @@ header {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+header .row {
+  padding-bottom: 20px;
 }
 
 header .btns {
   -ms-flex-item-align: end;
-  align-self: flex-end;
+      align-self: flex-end;
 }
 
 header .btns .btn {
@@ -40,13 +52,17 @@ header .btns .btn {
 
 header .search {
   -ms-flex-item-align: end;
-  align-self: flex-end;
+      align-self: flex-end;
   margin-left: auto;
 }
 
 header .search * {
   padding: 5px;
   width: 300px;
+}
+
+.month-menu {
+  margin-top: 20px;
 }
 
 .month-menu * {
