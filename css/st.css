@@ -84,3 +84,11 @@ header .search * {
 .month-menu .month {
   text-transform: capitalize;
 }
+
+table {
+  border-collapse: collapse;
+}
+
+table td {
+  border: 1px solid;
+}
