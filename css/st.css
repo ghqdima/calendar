@@ -4,12 +4,17 @@ body {
   padding: 0;
 }
 
-header {
-  height: 100px;
-  background-color: #f4f4f4;
+.row {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  border: 1px solid;
+  width: 90%;
+}
+
+header {
+  height: 100px;
+  background-color: #f4f4f4;
 }
 
 header .btns {
@@ -35,4 +40,20 @@ header .search {
   margin-right: 20px;
   margin-bottom: 20px;
   margin-left: auto;
+}
+
+.month-menu * {
+  display: inline-block;
+}
+
+.month-menu .prev,
+.month-menu .next,
+.month-menu .day {
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 2px;
+}
+
+.month-menu .month {
+  text-transform: capitalize;
 }
