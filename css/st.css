@@ -8,20 +8,24 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  border: 1px solid;
+  padding-bottom: 20px;
   width: 90%;
 }
 
 header {
   height: 100px;
   background-color: #f4f4f4;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 header .btns {
   -ms-flex-item-align: end;
       align-self: flex-end;
-  margin-left: 20px;
-  margin-bottom: 20px;
 }
 
 header .btns .btn {
@@ -37,9 +41,12 @@ header .btns .btn {
 header .search {
   -ms-flex-item-align: end;
       align-self: flex-end;
-  margin-right: 20px;
-  margin-bottom: 20px;
   margin-left: auto;
+}
+
+header .search * {
+  padding: 5px;
+  width: 300px;
 }
 
 .month-menu * {
