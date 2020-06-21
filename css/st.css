@@ -67,6 +67,11 @@ header .search * {
   width: 300px;
 }
 
+header .search .icon {
+  color: #c2c2c2;
+  font-size: medium;
+}
+
 .month-menu {
   margin-top: 20px;
 }
