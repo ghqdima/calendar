@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendar</title>
     <link rel="stylesheet" href="css/st.css">
+    <script defer src="js/js.js"></script>
 </head>
 
 <body>
@@ -22,11 +23,11 @@
     </header>
     <main>
         <div class="row">
-            <div class="month-menu">
-                <div class="prev">&#9666</div>
+            <div class="month-menu" onclick="changeDate(event)">
+                <div class="prev" data-np="p">&#9666</div>
                 <div class="month">month</div>
                 <div class="year">2020</div>
-                <div class="next">&#9656</div>
+                <div class="next" data-np="n">&#9656</div>
                 <div class="day">day</div>
             </div>
         </div>
