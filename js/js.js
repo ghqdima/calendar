@@ -40,7 +40,8 @@ function setMonthTable(y, m) {
     function getMonthDate(d) {
         return new Date(y, m, d)
     }
-    let weekBegin = 7 - Math.abs(getMonthDate(1).getDay() - 7) - 1;
+    let weekBegin = 7 - Math.abs(getMonthDate(1).getDay() - 7);
+    weekBegin = weekBegin > 0 ? weekBegin - 1 : 6;
     let next = 1;
     for (let i = weekBegin; i < month_menu.domTable.length; i++) {
         let el = month_menu.domTable[i].querySelector(".week-day");
