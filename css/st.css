@@ -104,6 +104,7 @@ header .search .icon {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  text-transform: capitalize;
 }
 
 .month-menu .prev:hover,
