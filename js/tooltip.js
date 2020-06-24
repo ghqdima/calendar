@@ -5,6 +5,7 @@ const toolTipOb = {
 
 function setToolTip(e) {
     let et = e.target;
+    e.stopPropagation()
     if (toolTipOb.target != et) {
         if (toolTipOb.tooltip) {
             toolTipOb.tooltip.remove()
@@ -16,6 +17,10 @@ function setToolTip(e) {
             tooltip.classList.add("tooltip")
             document.body.append(tooltip)
             toolTipOb.tooltip = tooltip;
+            document.addEventListener('click', function (event) {
+                var e = toolTipOb.tooltip;
+                if (!e.contains(event.target)) e.remove()
+            });
         }
 
 
