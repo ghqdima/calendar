@@ -7,7 +7,8 @@ let month_menu = {
     domTable: document.querySelectorAll('table td'),
 }
 
-function init() {
+function init(e) {
+    e && e.stopPropagation()
     month_menu.dateMonth = new Date().getMonth();
     month_menu.domMonth.innerHTML = month_menu.months[month_menu.dateMonth]
     month_menu.domYear.innerHTML = month_menu.initDate.y = month_menu.dateNow.getFullYear()
