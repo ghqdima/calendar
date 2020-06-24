@@ -1,5 +1,6 @@
 html,
 body {
+  position: relative;
   margin: 0;
   padding: 0;
 }
@@ -17,11 +18,11 @@ main {
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   margin-bottom: 20px;
 }
 
@@ -32,10 +33,10 @@ header {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-shadow: #d4d4d4 0px 2px 5px;
-  box-shadow: #d4d4d4 0px 2px 5px;
+          box-shadow: #d4d4d4 0px 2px 5px;
 }
 
 header .row {
@@ -44,7 +45,7 @@ header .row {
 
 header .btns {
   -ms-flex-item-align: end;
-  align-self: flex-end;
+      align-self: flex-end;
 }
 
 header .btns .btn {
@@ -56,18 +57,18 @@ header .btns .btn {
   color: #fff;
   font-weight: bolder;
   -webkit-box-shadow: #313131 0.3px 0.5px 2px;
-  box-shadow: #313131 0.3px 0.5px 2px;
+          box-shadow: #313131 0.3px 0.5px 2px;
   cursor: pointer;
 }
 
 header .btns .btn:hover {
   -webkit-box-shadow: #313131 0.3px 0.5px 1px;
-  box-shadow: #313131 0.3px 0.5px 1px;
+          box-shadow: #313131 0.3px 0.5px 1px;
 }
 
 header .search {
   -ms-flex-item-align: end;
-  align-self: flex-end;
+      align-self: flex-end;
   margin-left: auto;
 }
 
@@ -97,13 +98,13 @@ header .search .icon {
   padding: 2px;
   line-height: 20px;
   -webkit-box-shadow: 0 0 1px 0.5px rgba(224, 224, 224, 0.452);
-  box-shadow: 0 0 1px 0.5px rgba(224, 224, 224, 0.452);
+          box-shadow: 0 0 1px 0.5px rgba(224, 224, 224, 0.452);
   cursor: pointer;
   color: #555555;
   -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   text-transform: capitalize;
 }
 
@@ -140,7 +141,6 @@ table td {
   width: 100px;
   height: 150px;
   vertical-align: top;
-  padding: 0;
 }
 
 table .info {
@@ -149,7 +149,7 @@ table .info {
   padding: 5px;
   border: 1px solid transparent;
   -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 table .info:hover {
@@ -160,4 +160,13 @@ table .info:hover {
 table .week-day-info {
   height: 120px;
   border: 1px solid;
+}
+
+.tooltip {
+  position: absolute;
+  width: 100px;
+  height: 200px;
+  border: 1px solid;
+  top: 0;
+  left: 0;
 }
