@@ -140,6 +140,7 @@ table td {
   width: 100px;
   height: 150px;
   vertical-align: top;
+  padding: 0;
 }
 
 table .info {
