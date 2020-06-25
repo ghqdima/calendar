@@ -44,6 +44,7 @@ function createToolTip() {
             t.append(el)
         });
     }
+
     let tooltip = document.createElement("div");
     let text = document.createElement("textarea");
     text.placeholder = "Описание";
@@ -62,7 +63,7 @@ let coordsToolTip = {
         document.body.clientHeight, document.documentElement.clientHeight
     ),
     leftTop(el, coords) {
-        el.style.left = coords.x + coords.width + 20 + "px";
+        el.style.left = coords.x + coords.width + 25 + "px";
         el.style.top = coords.y - 40 + pageYOffset + "px";
     },
     leftBottom(el, coords) {
