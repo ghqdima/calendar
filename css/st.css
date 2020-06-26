@@ -219,6 +219,18 @@ table .week-day-info {
           transform: rotateZ(0deg);
 }
 
+.tooltip .delToolTip {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  cursor: pointer;
+  font-size: 7px;
+}
+
+.tooltip .delToolTip::after {
+  content: "\2573";
+}
+
 .triangleBottomLeft::after {
   top: 250px;
 }

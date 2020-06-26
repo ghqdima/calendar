@@ -54,9 +54,13 @@ function createToolTip() {
 
     let tooltip = document.createElement("div");
     let text = document.createElement("textarea");
+    let del = document.createElement("div");
+    del.classList.add("delToolTip")
+    del.onclick = delToolTip;
     text.placeholder = "Описание";
 
-    crInput([1, 2, 3], tooltip)
+    crInput(["Событие", "День, месяц, год", "Имена участников"], tooltip)
+    tooltip.append(del)
     tooltip.append(text)
     crBtns(["Готово", "Удалить"], tooltip)
     tooltip.classList.add("tooltip")
