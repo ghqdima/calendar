@@ -22,39 +22,56 @@ let coordsToolTip = {
 const toolTip = {
     turnTarget: "",
     tt: "",
-    create() {
-        function crInput(n, t) {
+    crFunc: {
+        crInput(n, t) {
             n.forEach(i => {
                 let el = document.createElement("input");
                 el.placeholder = i;
                 t.append(el)
             });
-        }
-
-        function crBtns(n, t) {
+        },
+        crBtns(n, t) {
             n.forEach(i => {
                 let el = document.createElement("button");
-                if (i == "Готово") el.onclick = toolTip.delete;
                 el.innerHTML = i;
                 t.append(el)
             });
+        },
+        crDel() {
+            let del = document.createElement("div");
+            del.classList.add("delToolTip")
+            del.onclick = toolTip.delete;
+            return del;
+        },
+        crText() {
+            let text = document.createElement("textarea");
+            text.placeholder = "Описание";
+            return text;
         }
+    },
+    createCalToolTip() {
 
         let tooltip = document.createElement("div");
-        let text = document.createElement("textarea");
-        let del = document.createElement("div");
-        del.classList.add("delToolTip")
-        del.onclick = toolTip.delete;
-        text.placeholder = "Описание";
-
-        crInput(["Событие", "День, месяц, год", "Имена участников"], tooltip)
-        tooltip.append(del)
-        tooltip.append(text)
-        crBtns(["Готово", "Удалить"], tooltip)
         tooltip.classList.add("tooltip")
+
+
+        toolTip.crFunc.crInput(["Событие", "День, месяц, год", "Имена участников"], tooltip)
+        tooltip.append(toolTip.crFunc.crDel())
+        tooltip.append(toolTip.crFunc.crText())
+        toolTip.crFunc.crBtns(["Готово", "Удалить"], tooltip)
         document.body.append(tooltip)
         return tooltip
     },
+    createAddButtonToolTip() {
+        let tooltip = document.createElement("div");
+        tooltip.classList.add("tooltip");
+        toolTip.crFunc.crInput(["Событие"], tooltip)
+        tooltip.append(toolTip.crFunc.crDel())
+        toolTip.crFunc.crBtns(["Создать"], tooltip)
+        document.body.append(tooltip)
+        return tooltip
+    },
+
     delete() {
         toolTip.tt.remove();
         toolTip.turnTarget = "";
@@ -67,7 +84,32 @@ const toolTip = {
             if (et.className == "week-day-info") {
                 toolTip.turnTarget = et;
                 let coords = toolTip.turnTarget.getBoundingClientRect()
-                toolTip.tt = toolTip.create();
+                toolTip.tt = toolTip.createCalToolTip();
+                if ((coords.bottom + pageYOffset) < 900) {
+                    coordsToolTip.setTopStyleTriangle(toolTip.tt, "triangleTopLeft")
+                    coordsToolTip.leftTop(toolTip.tt, coords)
+                } else {
+                    coordsToolTip.setTopStyleTriangle(toolTip.tt, "triangleBottomLeft")
+                    coordsToolTip.leftBottom(toolTip.tt, coords);
+                }
+                if ((coords.right + pageXOffset) > 900) {
+                    coordsToolTip.setTopStyleTriangle(toolTip.tt, "triangleTopRight")
+                    coordsToolTip.rTop(toolTip.tt, coords)
+                    if ((coords.bottom + pageYOffset) > 900) {
+                        coordsToolTip.setTopStyleTriangle(toolTip.tt, "triangleBottomRight")
+                    }
+                }
+            }
+        }
+    },
+    setAddButton(e) {
+        let et = e.target;
+        if (!toolTip.tt && toolTip.turnTarget != et) {
+
+            if (et.id == "addBtn") {
+                toolTip.turnTarget = et;
+                let coords = toolTip.turnTarget.getBoundingClientRect()
+                toolTip.tt = toolTip.createCalToolTip();
                 if ((coords.bottom + pageYOffset) < 900) {
                     coordsToolTip.leftTop(toolTip.tt, coords)
                 } else {
@@ -82,8 +124,7 @@ const toolTip = {
                     }
                 }
             }
-
-
         }
-    }
+    },
+    setSearch() {}
 }
