@@ -95,17 +95,17 @@ const toolTip = {
                 let coords = toolTip.turnTarget.getBoundingClientRect()
                 toolTip.tt = toolTip.createCalToolTip();
                 if ((coords.bottom + pageYOffset) < 900) {
-                    coordsToolTip.setTopStyleTriangle(toolTip.tt, "triangleTopLeft")
+                    coordsToolTip.setTopStyleTriangle(toolTip.tt, "arrowLeft1")
                     coordsToolTip.leftTop(toolTip.tt, coords)
                 } else {
-                    coordsToolTip.setTopStyleTriangle(toolTip.tt, "triangleBottomLeft")
+                    coordsToolTip.setTopStyleTriangle(toolTip.tt, "arrowLeft2")
                     coordsToolTip.leftBottom(toolTip.tt, coords);
                 }
                 if ((coords.right + pageXOffset) > 900) {
-                    coordsToolTip.setTopStyleTriangle(toolTip.tt, "triangleTopRight")
+                    coordsToolTip.setTopStyleTriangle(toolTip.tt, "arrowRight1")
                     coordsToolTip.rTop(toolTip.tt, coords)
                     if ((coords.bottom + pageYOffset) > 900) {
-                        coordsToolTip.setTopStyleTriangle(toolTip.tt, "triangleBottomRight")
+                        coordsToolTip.setTopStyleTriangle(toolTip.tt, "arrowRight2")
                     }
                 }
             }
@@ -119,7 +119,7 @@ const toolTip = {
                 toolTip.turnTarget = et;
                 let coords = toolTip.turnTarget.getBoundingClientRect()
                 toolTip.tt = toolTip.createAddButtonToolTip();
-                coordsToolTip.setTopStyleTriangle(toolTip.tt, "triangleTopTop")
+                coordsToolTip.setTopStyleTriangle(toolTip.tt, "arrowTop1")
                 coordsToolTip.btnTop(toolTip.tt, coords);
             }
         }

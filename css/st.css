@@ -219,27 +219,27 @@ table .week-day-info {
   content: "\2573";
 }
 
-.triangleTopLeft::after {
+.arrowLeft1::after {
   top: 50px;
   left: -10px;
 }
 
-.triangleBottomLeft::after {
+.arrowLeft2::after {
   top: 250px;
   left: -10px;
 }
 
-.triangleTopRight::after {
+.arrowRight1::after {
   top: 50px;
   left: 340px;
 }
 
-.triangleBottomRight::after {
+.arrowRight2::after {
   top: 250px;
   left: 340px;
 }
 
-.triangleTopTop::after {
+.arrowTop1::after {
   top: -10px;
   left: 20px;
 }
