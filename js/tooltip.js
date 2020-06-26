@@ -4,7 +4,7 @@ let coordsToolTip = {
         document.body.offsetHeight, document.documentElement.offsetHeight,
         document.body.clientHeight, document.documentElement.clientHeight
     ),
-    setTopStyleTriangle(el, st) {
+    setStyleArrow(el, st) {
         el.classList.add(st)
     },
     leftTop(el, coords) {
@@ -95,17 +95,17 @@ const toolTip = {
                 let coords = toolTip.turnTarget.getBoundingClientRect()
                 toolTip.tt = toolTip.createCalToolTip();
                 if ((coords.bottom + pageYOffset) < 900) {
-                    coordsToolTip.setTopStyleTriangle(toolTip.tt, "arrowLeft1")
+                    coordsToolTip.setStyleArrow(toolTip.tt, "arrowLeft1")
                     coordsToolTip.leftTop(toolTip.tt, coords)
                 } else {
-                    coordsToolTip.setTopStyleTriangle(toolTip.tt, "arrowLeft2")
+                    coordsToolTip.setStyleArrow(toolTip.tt, "arrowLeft2")
                     coordsToolTip.leftBottom(toolTip.tt, coords);
                 }
                 if ((coords.right + pageXOffset) > 900) {
-                    coordsToolTip.setTopStyleTriangle(toolTip.tt, "arrowRight1")
+                    coordsToolTip.setStyleArrow(toolTip.tt, "arrowRight1")
                     coordsToolTip.rTop(toolTip.tt, coords)
                     if ((coords.bottom + pageYOffset) > 900) {
-                        coordsToolTip.setTopStyleTriangle(toolTip.tt, "arrowRight2")
+                        coordsToolTip.setStyleArrow(toolTip.tt, "arrowRight2")
                     }
                 }
             }
@@ -119,7 +119,7 @@ const toolTip = {
                 toolTip.turnTarget = et;
                 let coords = toolTip.turnTarget.getBoundingClientRect()
                 toolTip.tt = toolTip.createAddButtonToolTip();
-                coordsToolTip.setTopStyleTriangle(toolTip.tt, "arrowTop1")
+                coordsToolTip.setStyleArrow(toolTip.tt, "arrowTop1")
                 coordsToolTip.btnTop(toolTip.tt, coords);
             }
         }
