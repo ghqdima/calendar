@@ -60,7 +60,7 @@ const toolTip = {
         toolTip.turnTarget = "";
         toolTip.tt = "";
     },
-    set(e) {
+    setCalendar(e) {
         let et = e.target;
         if (!toolTip.tt && toolTip.turnTarget != et) {
 
