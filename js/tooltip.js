@@ -8,12 +8,19 @@ function setToolTip(e) {
             setToolTip.target = et;
             let coords = setToolTip.target.getBoundingClientRect()
             setToolTip.tooltip = createToolTip();
-            if ((coords.bottom + pageYOffset) < 900)
+            if ((coords.bottom + pageYOffset) < 900) {
                 coordsToolTip.leftTop(setToolTip.tooltip, coords)
-            else
+            } else {
+                coordsToolTip.setTopStyleTriangle(setToolTip.tooltip, "triangleBottomLeft")
                 coordsToolTip.leftBottom(setToolTip.tooltip, coords);
-            if ((coords.right + pageXOffset) > 900)
+            }
+            if ((coords.right + pageXOffset) > 900) {
+                coordsToolTip.setTopStyleTriangle(setToolTip.tooltip, "triangleTopRight")
                 coordsToolTip.rTop(setToolTip.tooltip, coords)
+                if ((coords.bottom + pageYOffset) > 900) {
+                    coordsToolTip.setTopStyleTriangle(setToolTip.tooltip, "triangleBottomRight")
+                }
+            }
         }
 
 
@@ -62,6 +69,9 @@ let coordsToolTip = {
         document.body.offsetHeight, document.documentElement.offsetHeight,
         document.body.clientHeight, document.documentElement.clientHeight
     ),
+    setTopStyleTriangle(el, st) {
+        el.classList.add(st)
+    },
     leftTop(el, coords) {
         el.style.left = coords.x + coords.width + 25 + "px";
         el.style.top = coords.y - 40 + pageYOffset + "px";
