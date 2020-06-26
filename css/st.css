@@ -164,11 +164,8 @@ table .week-day-info {
 
 .tooltip {
   position: absolute;
-  padding: 20px;
   width: 350px;
   background-color: #fff;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
   -webkit-box-shadow: 0 0 3px 3px #adadad;
           box-shadow: 0 0 3px 3px #adadad;
 }
@@ -190,14 +187,11 @@ table .week-day-info {
   margin-bottom: 10px;
 }
 
-.tooltip::after, .tooltip::before {
+.tooltip::after {
   content: " ";
   position: absolute;
   width: 20px;
   background-color: #fff;
-}
-
-.tooltip::after {
   height: 20px;
   -webkit-transform: rotateZ(45deg);
           transform: rotateZ(45deg);
@@ -205,24 +199,23 @@ table .week-day-info {
           box-shadow: 0 0 3px 3px #adadad;
 }
 
-.tooltip::before {
-  height: 40px;
-  z-index: 1;
-  -webkit-box-shadow: none;
-          box-shadow: none;
-  -webkit-transform: rotateZ(0deg);
-          transform: rotateZ(0deg);
+.tooltip .inter {
+  position: relative;
+  padding: 20px;
+  height: inherit;
+  background-color: #ffffff;
+  z-index: 2;
 }
 
-.tooltip .delToolTip {
+.tooltip .inter .delToolTip {
   position: absolute;
-  top: 7px;
-  right: 7px;
+  top: 10px;
+  right: 10px;
   cursor: pointer;
   font-size: 7px;
 }
 
-.tooltip .delToolTip::after {
+.tooltip .inter .delToolTip::after {
   content: "\2573";
 }
 
@@ -231,19 +224,9 @@ table .week-day-info {
   left: -10px;
 }
 
-.triangleTopLeft::before {
-  top: 40px;
-  left: 0px;
-}
-
 .triangleBottomLeft::after {
   top: 250px;
   left: -10px;
-}
-
-.triangleBottomLeft::before {
-  top: 240px;
-  left: 0px;
 }
 
 .triangleTopRight::after {
@@ -251,17 +234,7 @@ table .week-day-info {
   left: 340px;
 }
 
-.triangleTopRight::before {
-  top: 40px;
-  left: 330px;
-}
-
 .triangleBottomRight::after {
   top: 250px;
   left: 340px;
-}
-
-.triangleBottomRight::before {
-  top: 240px;
-  left: 330px;
 }

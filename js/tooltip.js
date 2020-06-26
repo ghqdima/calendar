@@ -52,13 +52,15 @@ const toolTip = {
     createCalToolTip() {
 
         let tooltip = document.createElement("div");
+        let inter = document.createElement("div");
         tooltip.classList.add("tooltip")
+        inter.classList.add("inter")
 
-
-        toolTip.crFunc.crInput(["Событие", "День, месяц, год", "Имена участников"], tooltip)
-        tooltip.append(toolTip.crFunc.crDel())
-        tooltip.append(toolTip.crFunc.crText())
-        toolTip.crFunc.crBtns(["Готово", "Удалить"], tooltip)
+        toolTip.crFunc.crInput(["Событие", "День, месяц, год", "Имена участников"], inter)
+        inter.append(toolTip.crFunc.crDel())
+        inter.append(toolTip.crFunc.crText())
+        toolTip.crFunc.crBtns(["Готово", "Удалить"], inter)
+        tooltip.append(inter)
         document.body.append(tooltip)
         return tooltip
     },
