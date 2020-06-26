@@ -1,72 +1,3 @@
-function setToolTip(e) {
-
-    let et = e.target;
-    // e.stopPropagation()
-    if (!setToolTip.tooltip && setToolTip.target != et) {
-
-        if (et.className == "week-day-info") {
-            setToolTip.target = et;
-            let coords = setToolTip.target.getBoundingClientRect()
-            setToolTip.tooltip = createToolTip();
-            if ((coords.bottom + pageYOffset) < 900) {
-                coordsToolTip.leftTop(setToolTip.tooltip, coords)
-            } else {
-                coordsToolTip.setTopStyleTriangle(setToolTip.tooltip, "triangleBottomLeft")
-                coordsToolTip.leftBottom(setToolTip.tooltip, coords);
-            }
-            if ((coords.right + pageXOffset) > 900) {
-                coordsToolTip.setTopStyleTriangle(setToolTip.tooltip, "triangleTopRight")
-                coordsToolTip.rTop(setToolTip.tooltip, coords)
-                if ((coords.bottom + pageYOffset) > 900) {
-                    coordsToolTip.setTopStyleTriangle(setToolTip.tooltip, "triangleBottomRight")
-                }
-            }
-        }
-
-
-    }
-}
-
-function delToolTip() {
-    var e = setToolTip.tooltip;
-    e.remove();
-    setToolTip.target = "";
-    setToolTip.tooltip = "";
-}
-
-function createToolTip() {
-    function crInput(n, t) {
-        n.forEach(i => {
-            let el = document.createElement("input");
-            el.placeholder = i;
-            t.append(el)
-        });
-    }
-
-    function crBtns(n, t) {
-        n.forEach(i => {
-            let el = document.createElement("button");
-            if (i == "Готово") el.onclick = delToolTip;
-            el.innerHTML = i;
-            t.append(el)
-        });
-    }
-
-    let tooltip = document.createElement("div");
-    let text = document.createElement("textarea");
-    let del = document.createElement("div");
-    del.classList.add("delToolTip")
-    del.onclick = delToolTip;
-    text.placeholder = "Описание";
-
-    crInput(["Событие", "День, месяц, год", "Имена участников"], tooltip)
-    tooltip.append(del)
-    tooltip.append(text)
-    crBtns(["Готово", "Удалить"], tooltip)
-    tooltip.classList.add("tooltip")
-    document.body.append(tooltip)
-    return tooltip
-}
 let coordsToolTip = {
     scrollHeight: Math.max(
         document.body.scrollHeight, document.documentElement.scrollHeight,
@@ -88,6 +19,71 @@ let coordsToolTip = {
         el.style.left = coords.x - 370 + "px";
     }
 }
+const toolTip = {
+    turnTarget: "",
+    tt: "",
+    create() {
+        function crInput(n, t) {
+            n.forEach(i => {
+                let el = document.createElement("input");
+                el.placeholder = i;
+                t.append(el)
+            });
+        }
 
-setToolTip.target = "";
-setToolTip.tooltip = "";
+        function crBtns(n, t) {
+            n.forEach(i => {
+                let el = document.createElement("button");
+                if (i == "Готово") el.onclick = toolTip.delete;
+                el.innerHTML = i;
+                t.append(el)
+            });
+        }
+
+        let tooltip = document.createElement("div");
+        let text = document.createElement("textarea");
+        let del = document.createElement("div");
+        del.classList.add("delToolTip")
+        del.onclick = toolTip.delete;
+        text.placeholder = "Описание";
+
+        crInput(["Событие", "День, месяц, год", "Имена участников"], tooltip)
+        tooltip.append(del)
+        tooltip.append(text)
+        crBtns(["Готово", "Удалить"], tooltip)
+        tooltip.classList.add("tooltip")
+        document.body.append(tooltip)
+        return tooltip
+    },
+    delete() {
+        toolTip.tt.remove();
+        toolTip.turnTarget = "";
+        toolTip.tt = "";
+    },
+    set(e) {
+        let et = e.target;
+        if (!toolTip.tt && toolTip.turnTarget != et) {
+
+            if (et.className == "week-day-info") {
+                toolTip.turnTarget = et;
+                let coords = toolTip.turnTarget.getBoundingClientRect()
+                toolTip.tt = toolTip.create();
+                if ((coords.bottom + pageYOffset) < 900) {
+                    coordsToolTip.leftTop(toolTip.tt, coords)
+                } else {
+                    coordsToolTip.setTopStyleTriangle(toolTip.tt, "triangleBottomLeft")
+                    coordsToolTip.leftBottom(toolTip.tt, coords);
+                }
+                if ((coords.right + pageXOffset) > 900) {
+                    coordsToolTip.setTopStyleTriangle(toolTip.tt, "triangleTopRight")
+                    coordsToolTip.rTop(toolTip.tt, coords)
+                    if ((coords.bottom + pageYOffset) > 900) {
+                        coordsToolTip.setTopStyleTriangle(toolTip.tt, "triangleBottomRight")
+                    }
+                }
+            }
+
+
+        }
+    }
+}
