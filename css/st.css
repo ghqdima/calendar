@@ -238,3 +238,8 @@ table .week-day-info {
   top: 250px;
   left: 340px;
 }
+
+.triangleTopTop::after {
+  top: -10px;
+  left: 20px;
+}

@@ -17,6 +17,10 @@ let coordsToolTip = {
     },
     rTop(el, coords) {
         el.style.left = coords.x - 370 + "px";
+    },
+    btnTop(el, coords) {
+        el.style.left = coords.x + "px";
+        el.style.top = coords.y + 50 + pageYOffset + "px";
     }
 }
 const toolTip = {
@@ -66,10 +70,13 @@ const toolTip = {
     },
     createAddButtonToolTip() {
         let tooltip = document.createElement("div");
-        tooltip.classList.add("tooltip");
-        toolTip.crFunc.crInput(["Событие"], tooltip)
-        tooltip.append(toolTip.crFunc.crDel())
-        toolTip.crFunc.crBtns(["Создать"], tooltip)
+        let inter = document.createElement("div");
+        tooltip.classList.add("tooltip")
+        inter.classList.add("inter")
+        toolTip.crFunc.crInput(["Событие"], inter)
+        inter.append(toolTip.crFunc.crDel())
+        toolTip.crFunc.crBtns(["Создать"], inter)
+        tooltip.append(inter)
         document.body.append(tooltip)
         return tooltip
     },
@@ -111,20 +118,9 @@ const toolTip = {
             if (et.id == "addBtn") {
                 toolTip.turnTarget = et;
                 let coords = toolTip.turnTarget.getBoundingClientRect()
-                toolTip.tt = toolTip.createCalToolTip();
-                if ((coords.bottom + pageYOffset) < 900) {
-                    coordsToolTip.leftTop(toolTip.tt, coords)
-                } else {
-                    coordsToolTip.setTopStyleTriangle(toolTip.tt, "triangleBottomLeft")
-                    coordsToolTip.leftBottom(toolTip.tt, coords);
-                }
-                if ((coords.right + pageXOffset) > 900) {
-                    coordsToolTip.setTopStyleTriangle(toolTip.tt, "triangleTopRight")
-                    coordsToolTip.rTop(toolTip.tt, coords)
-                    if ((coords.bottom + pageYOffset) > 900) {
-                        coordsToolTip.setTopStyleTriangle(toolTip.tt, "triangleBottomRight")
-                    }
-                }
+                toolTip.tt = toolTip.createAddButtonToolTip();
+                coordsToolTip.setTopStyleTriangle(toolTip.tt, "triangleTopTop")
+                coordsToolTip.btnTop(toolTip.tt, coords);
             }
         }
     },
