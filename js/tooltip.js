@@ -66,9 +66,11 @@ const toolTip = {
         crText() {
             let text = document.createElement("textarea");
             text.placeholder = "Описание";
+            text.dataset.inp = "discription";
             return text;
         },
-        crSearchItem() {
+        crSearchItem(ob) {
+            console.log(ob);
             let item = document.createElement('div');
             let inter = document.createElement('div');
             let h = document.createElement('div');
@@ -78,8 +80,8 @@ const toolTip = {
             inter.append(gradi)
             item.classList.add("searchItem")
             inter.classList.add("searchItem__Inter")
-            h.innerHTML = "dshfhghsdfhsdgdhsfgsdhjfdsghfsdhjfdhsfsdgfhsdgfsdgfsdgfsdhfgsdhfgsdhfgdhsd";
-            d.innerHTML = "26 июня";
+            h.innerHTML = ob.header;
+            d.innerHTML = ob.date;
             inter.append(h)
             inter.append(d)
             item.append(inter)
