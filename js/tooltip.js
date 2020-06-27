@@ -95,7 +95,16 @@ const toolTip = {
         tooltip.classList.add("tooltip")
         inter.classList.add("inter")
 
-        toolTip.crFunc.crInput(["Событие", "День, месяц, год", "Имена участников"], inter)
+        toolTip.crFunc.crInput([{
+            i: "Событие",
+            ob: "header"
+        }, {
+            i: "День, месяц, год",
+            ob: "date"
+        }, {
+            i: "Имена участников",
+            ob: "people"
+        }], inter)
         inter.append(toolTip.crFunc.crDel())
         inter.append(toolTip.crFunc.crText())
         toolTip.crFunc.crBtns(["Готово", "Удалить"], inter)
