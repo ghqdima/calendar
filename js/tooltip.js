@@ -26,6 +26,12 @@ let coordsToolTip = {
 const toolTip = {
     turnTarget: "",
     tt: "",
+    toolData: {
+        header: "",
+        date: "",
+        people: "",
+        discription: ""
+    },
     crFunc: {
         crInput(n, t) {
             n.forEach(i => {
