@@ -51,6 +51,20 @@ const toolTip = {
             let text = document.createElement("textarea");
             text.placeholder = "Описание";
             return text;
+        },
+        crSearchItem() {
+            let item = document.createElement('div');
+            let inter = document.createElement('div');
+            let h = document.createElement('div');
+            let d = document.createElement('small');
+            item.classList.add("searchItem")
+            inter.classList.add("searchInter")
+            h.innerHTML = "dshfhgd";
+            d.innerHTML = "26 июня";
+            inter.append(h)
+            inter.append(d)
+            item.append(inter)
+            return item;
         }
     },
     createCalToolTip() {
@@ -80,7 +94,18 @@ const toolTip = {
         document.body.append(tooltip)
         return tooltip
     },
-
+    createSearchToolTip() {
+        let tooltip = document.createElement("div");
+        let inter = document.createElement("div");
+        tooltip.classList.add("tooltip")
+        inter.classList.add("inter")
+        inter.style.padding = "5px";
+        inter.addEventListener("click", toolTip.delete)
+        inter.append(toolTip.crFunc.crSearchItem())
+        tooltip.append(inter)
+        document.body.append(tooltip)
+        return tooltip
+    },
     delete() {
         toolTip.tt.remove();
         toolTip.turnTarget = "";
@@ -124,5 +149,17 @@ const toolTip = {
             }
         }
     },
-    setSearch() {}
+    setSearch(e) {
+        let et = e.target;
+        if (!toolTip.tt && toolTip.turnTarget != et) {
+
+            if (et.id == "srch") {
+                toolTip.turnTarget = et;
+                let coords = toolTip.turnTarget.getBoundingClientRect()
+                toolTip.tt = toolTip.createSearchToolTip();
+                coordsToolTip.setStyleArrow(toolTip.tt, "arrowTop1")
+                coordsToolTip.btnTop(toolTip.tt, coords);
+            }
+        }
+    }
 }

@@ -243,3 +243,25 @@ table .week-day-info {
   top: -10px;
   left: 20px;
 }
+
+.searchItem .searchInter {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.searchItem .searchInter:hover {
+  background-color: #a5ceef;
+}
+
+.searchItem small {
+  color: #979797;
+  font-weight: bold;
+}
+
+.searchItem::after {
+  content: "";
+  display: block;
+  margin-top: 2px;
+  border: 1px solid transparent;
+  border-bottom-color: #cccccc;
+}
