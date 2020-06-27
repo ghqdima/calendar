@@ -55,6 +55,14 @@ function setMonthTable(y, m) {
         let ob = month_menu.initDate;
         if (ob.y == y && ob.m == m) return ob.d
     }
+
+    function setDataDay(ob) {
+        let d = ob.getDate();
+        let m = ob.getMonth();
+        let y = ob.getFullYear();
+        return "" + y + "-" + m + "-" + d;
+
+    }
     if (!getToday()) {
         month_menu.initDate.domDate && month_menu.initDate.domDate.classList.remove("bg")
     }
@@ -63,19 +71,48 @@ function setMonthTable(y, m) {
     let next = 1;
     for (let i = weekBegin; i < month_menu.domTable.length; i++) {
         let el = month_menu.domTable[i].querySelector(".week-day");
-        let d = getMonthDate(next++).getDate();
+        let elInfo = month_menu.domTable[i].querySelector(".week-day-info");
+        let obDate = getMonthDate(next++)
+        let d = obDate.getDate();
         if (d == getToday()) {
             month_menu.initDate.domDate = month_menu.domTable[i];
             month_menu.initDate.domDate.classList.add("bg")
         }
         el.innerHTML = d;
+        elInfo.innerHTML = "";
+        el.nextElementSibling.dataset.day = setDataDay(obDate);
     }
     let prev = 0;
     for (let i = weekBegin - 1; i >= 0; i--) {
         let el = month_menu.domTable[i].querySelector(".week-day");
-        el.innerHTML = getMonthDate(prev--).getDate()
+        let elInfo = month_menu.domTable[i].querySelector(".week-day-info");
+
+        let obDate = getMonthDate(prev--)
+
+        el.innerHTML = obDate.getDate()
+        elInfo.innerHTML = "";
+        el.nextElementSibling.dataset.day = setDataDay(obDate);
+    }
+    setDateInfo()
+
+}
+
+function setDateInfo() {
+    let tableDate = month_menu.initDate.y + "-" + month_menu.initDate.m;
+    let keys = Object.keys(localStorage);
+    let el = document.getElementsByTagName("table")[0].querySelectorAll(".week-day-info");
+    for (let key of keys) {
+        let ob = JSON.parse(localStorage.getItem(key));
+        for (let i = 0; i < el.length; i++) {
+            if (el[i].dataset.day == key) {
+                el[i].innerHTML = ob.header;
+            }
+
+        }
+
     }
 
 }
+
 
 init()

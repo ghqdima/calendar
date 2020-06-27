@@ -141,6 +141,7 @@ const toolTip = {
                     }
                 }
             }
+            console.log(month_menu.initDate.y, month_menu.initDate.m, et.dataset.day);
         }
     },
     setAddButton(e) {
