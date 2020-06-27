@@ -71,6 +71,7 @@ function setMonthTable(y, m) {
     let next = 1;
     for (let i = weekBegin; i < month_menu.domTable.length; i++) {
         let el = month_menu.domTable[i].querySelector(".week-day");
+        let elInfo = month_menu.domTable[i].querySelector(".week-day-info");
         let obDate = getMonthDate(next++)
         let d = obDate.getDate();
         if (d == getToday()) {
@@ -78,18 +79,40 @@ function setMonthTable(y, m) {
             month_menu.initDate.domDate.classList.add("bg")
         }
         el.innerHTML = d;
+        elInfo.innerHTML = "";
         el.nextElementSibling.dataset.day = setDataDay(obDate);
     }
     let prev = 0;
     for (let i = weekBegin - 1; i >= 0; i--) {
         let el = month_menu.domTable[i].querySelector(".week-day");
+        let elInfo = month_menu.domTable[i].querySelector(".week-day-info");
+
         let obDate = getMonthDate(prev--)
 
         el.innerHTML = obDate.getDate()
+        elInfo.innerHTML = "";
         el.nextElementSibling.dataset.day = setDataDay(obDate);
     }
+    setDateInfo()
+
 }
 
+function setDateInfo() {
+    let tableDate = month_menu.initDate.y + "-" + month_menu.initDate.m;
+    let keys = Object.keys(localStorage);
+    let el = document.getElementsByTagName("table")[0].querySelectorAll(".week-day-info");
+    for (let key of keys) {
+        let ob = JSON.parse(localStorage.getItem(key));
+        for (let i = 0; i < el.length; i++) {
+            if (el[i].dataset.day == key) {
+                el[i].innerHTML = ob.header;
+            }
+
+        }
+
+    }
+
+}
 
 
 init()
