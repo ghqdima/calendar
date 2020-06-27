@@ -107,7 +107,20 @@ const toolTip = {
         }], inter)
         inter.append(toolTip.crFunc.crDel())
         inter.append(toolTip.crFunc.crText())
-        toolTip.crFunc.crBtns(["Готово", "Удалить"], inter)
+        toolTip.crFunc.crBtns([{
+            i: "Готово",
+            c: (e) => {
+                let et = e.target;
+                let tt = et.closest(".inter").querySelectorAll("[data-inp]")
+                for (let i = 0; i < tt.length; i++) {
+                    toolTip.toolData[tt[i].dataset.inp] = tt[i].value;
+                }
+                let key = "" + month_menu.dateNow.getFullYear() + "-" + month_menu.dateMonth + "-" + toolTip.turnTarget.dataset.day;
+                console.log(key);
+                localStorage.setItem(key, JSON.stringify(toolTip.toolData))
+
+            }
+        }, "Удалить"], inter)
         tooltip.append(inter)
         document.body.append(tooltip)
         return tooltip
