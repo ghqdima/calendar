@@ -26,18 +26,34 @@ let coordsToolTip = {
 const toolTip = {
     turnTarget: "",
     tt: "",
+    toolData: {
+        header: "",
+        date: "",
+        people: "",
+        discription: ""
+    },
     crFunc: {
         crInput(n, t) {
             n.forEach(i => {
                 let el = document.createElement("input");
-                el.placeholder = i;
+                if (typeof i == "object") {
+                    el.dataset.inp = i.ob;
+                    el.placeholder = i.i;
+                } else {
+                    el.placeholder = i;
+                }
                 t.append(el)
             });
         },
         crBtns(n, t) {
             n.forEach(i => {
                 let el = document.createElement("button");
-                el.innerHTML = i;
+                if (typeof i == "object") {
+                    el.innerHTML = i.i;
+                    el.addEventListener("click", i.c)
+                } else {
+                    el.innerHTML = i;
+                }
                 t.append(el)
             });
         },
@@ -50,9 +66,11 @@ const toolTip = {
         crText() {
             let text = document.createElement("textarea");
             text.placeholder = "Описание";
+            text.dataset.inp = "discription";
             return text;
         },
-        crSearchItem() {
+        crSearchItem(ob) {
+            console.log(ob);
             let item = document.createElement('div');
             let inter = document.createElement('div');
             let h = document.createElement('div');
@@ -62,8 +80,8 @@ const toolTip = {
             inter.append(gradi)
             item.classList.add("searchItem")
             inter.classList.add("searchItem__Inter")
-            h.innerHTML = "dshfhghsdfhsdgdhsfgsdhjfdsghfsdhjfdhsfsdgfhsdgfsdgfsdgfsdhfgsdhfgsdhfgdhsd";
-            d.innerHTML = "26 июня";
+            h.innerHTML = ob.header;
+            d.innerHTML = ob.date;
             inter.append(h)
             inter.append(d)
             item.append(inter)
@@ -77,10 +95,32 @@ const toolTip = {
         tooltip.classList.add("tooltip")
         inter.classList.add("inter")
 
-        toolTip.crFunc.crInput(["Событие", "День, месяц, год", "Имена участников"], inter)
+        toolTip.crFunc.crInput([{
+            i: "Событие",
+            ob: "header"
+        }, {
+            i: "День, месяц, год",
+            ob: "date"
+        }, {
+            i: "Имена участников",
+            ob: "people"
+        }], inter)
         inter.append(toolTip.crFunc.crDel())
         inter.append(toolTip.crFunc.crText())
-        toolTip.crFunc.crBtns(["Готово", "Удалить"], inter)
+        toolTip.crFunc.crBtns([{
+            i: "Готово",
+            c: (e) => {
+                let et = e.target;
+                let tt = et.closest(".inter").querySelectorAll("[data-inp]")
+                for (let i = 0; i < tt.length; i++) {
+                    toolTip.toolData[tt[i].dataset.inp] = tt[i].value;
+                }
+                let key = "" + month_menu.dateNow.getFullYear() + "-" + month_menu.dateMonth + "-" + toolTip.turnTarget.dataset.day;
+                console.log(key);
+                localStorage.setItem(key, JSON.stringify(toolTip.toolData))
+
+            }
+        }, "Удалить"], inter)
         tooltip.append(inter)
         document.body.append(tooltip)
         return tooltip
@@ -105,9 +145,9 @@ const toolTip = {
         inter.style.padding = "5px 0";
         inter.style.paddingLeft = "5px";
         inter.addEventListener("click", toolTip.delete)
-        for (let i = 0; i < 20; i++) {
-
-            inter.append(toolTip.crFunc.crSearchItem())
+        let keys = Object.keys(localStorage);
+        for (let key of keys) {
+            inter.append(toolTip.crFunc.crSearchItem(JSON.parse(localStorage.getItem(key))))
         }
         tooltip.append(inter)
         document.body.append(tooltip)
