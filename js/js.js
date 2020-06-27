@@ -69,7 +69,7 @@ function setMonthTable(y, m) {
             month_menu.initDate.domDate.classList.add("bg")
         }
         el.innerHTML = d;
-        el.dataset.day = d;
+        el.nextElementSibling.dataset.day = d;
     }
     let prev = 0;
     for (let i = weekBegin - 1; i >= 0; i--) {
