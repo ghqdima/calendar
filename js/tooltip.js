@@ -57,9 +57,12 @@ const toolTip = {
             let inter = document.createElement('div');
             let h = document.createElement('div');
             let d = document.createElement('small');
+            let gradi = document.createElement('div');
+            gradi.classList.add("gradi")
+            inter.append(gradi)
             item.classList.add("searchItem")
-            inter.classList.add("searchInter")
-            h.innerHTML = "dshfhgd";
+            inter.classList.add("searchItem__Inter")
+            h.innerHTML = "dshfhghsdfhsdgdhsfgsdhjfdsghfsdhjfdhsfsdgfhsdgfsdgfsdgfsdhfgsdhfgsdhfgdhsd";
             d.innerHTML = "26 июня";
             inter.append(h)
             inter.append(d)
@@ -99,9 +102,13 @@ const toolTip = {
         let inter = document.createElement("div");
         tooltip.classList.add("tooltip")
         inter.classList.add("inter")
-        inter.style.padding = "5px";
+        inter.style.padding = "5px 0";
+        inter.style.paddingLeft = "5px";
         inter.addEventListener("click", toolTip.delete)
-        inter.append(toolTip.crFunc.crSearchItem())
+        for (let i = 0; i < 20; i++) {
+
+            inter.append(toolTip.crFunc.crSearchItem())
+        }
         tooltip.append(inter)
         document.body.append(tooltip)
         return tooltip
