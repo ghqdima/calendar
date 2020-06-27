@@ -70,7 +70,6 @@ const toolTip = {
             return text;
         },
         crSearchItem(ob) {
-            console.log(ob);
             let item = document.createElement('div');
             let inter = document.createElement('div');
             let h = document.createElement('div');
@@ -115,9 +114,7 @@ const toolTip = {
                 for (let i = 0; i < tt.length; i++) {
                     toolTip.toolData[tt[i].dataset.inp] = tt[i].value;
                 }
-                let key = "" + month_menu.dateNow.getFullYear() + "-" + month_menu.dateMonth + "-" + toolTip.turnTarget.dataset.day;
-                console.log(key);
-                localStorage.setItem(key, JSON.stringify(toolTip.toolData))
+                localStorage.setItem(toolTip.turnTarget.dataset.day, JSON.stringify(toolTip.toolData))
 
             }
         }, "Удалить"], inter)
