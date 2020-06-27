@@ -63,16 +63,11 @@ function setMonthTable(y, m) {
         return "" + y + "-" + m + "-" + d;
 
     }
-    if (!getToday()) {
-        month_menu.initDate.domDate && month_menu.initDate.domDate.classList.remove("bg")
-    }
-    let weekBegin = 7 - Math.abs(getMonthDate(1).getDay() - 7);
-    weekBegin = weekBegin > 0 ? weekBegin - 1 : 6;
-    let next = 1;
-    for (let i = weekBegin; i < month_menu.domTable.length; i++) {
+
+    function setWeekDayInfo(i, np) {
         let el = month_menu.domTable[i].querySelector(".week-day");
         let elInfo = month_menu.domTable[i].querySelector(".week-day-info");
-        let obDate = getMonthDate(next++)
+        let obDate = getMonthDate(np)
         let d = obDate.getDate();
         if (d == getToday()) {
             month_menu.initDate.domDate = month_menu.domTable[i];
@@ -82,22 +77,33 @@ function setMonthTable(y, m) {
         elInfo.innerHTML = "";
         el.nextElementSibling.dataset.day = setDataDay(obDate);
     }
+    if (!getToday()) {
+        month_menu.initDate.domDate && month_menu.initDate.domDate.classList.remove("bg")
+    }
+    let weekBegin = 7 - Math.abs(getMonthDate(1).getDay() - 7);
+    weekBegin = weekBegin > 0 ? weekBegin - 1 : 6;
+    let next = 1;
+    for (let i = weekBegin; i < month_menu.domTable.length; i++) {
+        setWeekDayInfo(i, next++)
+    }
     let prev = 0;
     for (let i = weekBegin - 1; i >= 0; i--) {
-        let el = month_menu.domTable[i].querySelector(".week-day");
-        let elInfo = month_menu.domTable[i].querySelector(".week-day-info");
-
-        let obDate = getMonthDate(prev--)
-
-        el.innerHTML = obDate.getDate()
-        elInfo.innerHTML = "";
-        el.nextElementSibling.dataset.day = setDataDay(obDate);
+        setWeekDayInfo(i, prev--)
     }
     setDateInfo()
 
 }
 
 function setDateInfo() {
+    function setInfo(ob, el) {
+        let h = document.createElement('div');
+        let d = document.createElement('div');
+        h.innerHTML = ob.header;
+        d.innerHTML = ob.discription;
+        el.append(h)
+        el.append(d)
+    }
+
     let tableDate = month_menu.initDate.y + "-" + month_menu.initDate.m;
     let keys = Object.keys(localStorage);
     let el = document.getElementsByTagName("table")[0].querySelectorAll(".week-day-info");
@@ -105,13 +111,13 @@ function setDateInfo() {
         let ob = JSON.parse(localStorage.getItem(key));
         for (let i = 0; i < el.length; i++) {
             if (el[i].dataset.day == key) {
-                el[i].innerHTML = ob.header;
+                setInfo(ob, el[i])
             }
 
         }
 
     }
-
+    // localStorage.clear()
 }
 
 
