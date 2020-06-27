@@ -95,6 +95,15 @@ function setMonthTable(y, m) {
 }
 
 function setDateInfo() {
+    function setInfo(ob, el) {
+        let h = document.createElement('div');
+        let d = document.createElement('div');
+        h.innerHTML = ob.header;
+        d.innerHTML = ob.discription;
+        el.append(h)
+        el.append(d)
+    }
+
     let tableDate = month_menu.initDate.y + "-" + month_menu.initDate.m;
     let keys = Object.keys(localStorage);
     let el = document.getElementsByTagName("table")[0].querySelectorAll(".week-day-info");
@@ -102,13 +111,13 @@ function setDateInfo() {
         let ob = JSON.parse(localStorage.getItem(key));
         for (let i = 0; i < el.length; i++) {
             if (el[i].dataset.day == key) {
-                el[i].innerHTML = ob.header;
+                setInfo(ob, el[i])
             }
 
         }
 
     }
-
+    // localStorage.clear()
 }
 
 
