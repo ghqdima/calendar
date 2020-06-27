@@ -36,14 +36,24 @@ const toolTip = {
         crInput(n, t) {
             n.forEach(i => {
                 let el = document.createElement("input");
-                el.placeholder = i;
+                if (typeof i == "object") {
+                    el.dataset.inp = i.ob;
+                    el.placeholder = i.i;
+                } else {
+                    el.placeholder = i;
+                }
                 t.append(el)
             });
         },
         crBtns(n, t) {
             n.forEach(i => {
                 let el = document.createElement("button");
-                el.innerHTML = i;
+                if (typeof i == "object") {
+                    el.innerHTML = i.i;
+                    el.addEventListener("click", i.c)
+                } else {
+                    el.innerHTML = i;
+                }
                 t.append(el)
             });
         },
