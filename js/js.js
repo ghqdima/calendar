@@ -55,6 +55,14 @@ function setMonthTable(y, m) {
         let ob = month_menu.initDate;
         if (ob.y == y && ob.m == m) return ob.d
     }
+
+    function setDataDay(ob) {
+        let d = ob.getDate();
+        let m = ob.getMonth();
+        let y = ob.getFullYear();
+        return "" + y + "-" + m + "-" + d;
+
+    }
     if (!getToday()) {
         month_menu.initDate.domDate && month_menu.initDate.domDate.classList.remove("bg")
     }
@@ -63,20 +71,25 @@ function setMonthTable(y, m) {
     let next = 1;
     for (let i = weekBegin; i < month_menu.domTable.length; i++) {
         let el = month_menu.domTable[i].querySelector(".week-day");
-        let d = getMonthDate(next++).getDate();
+        let obDate = getMonthDate(next++)
+        let d = obDate.getDate();
         if (d == getToday()) {
             month_menu.initDate.domDate = month_menu.domTable[i];
             month_menu.initDate.domDate.classList.add("bg")
         }
         el.innerHTML = d;
-        el.nextElementSibling.dataset.day = d;
+        el.nextElementSibling.dataset.day = setDataDay(obDate);
     }
     let prev = 0;
     for (let i = weekBegin - 1; i >= 0; i--) {
         let el = month_menu.domTable[i].querySelector(".week-day");
-        el.innerHTML = getMonthDate(prev--).getDate()
-    }
+        let obDate = getMonthDate(prev--)
 
+        el.innerHTML = obDate.getDate()
+        el.nextElementSibling.dataset.day = setDataDay(obDate);
+    }
 }
+
+
 
 init()
