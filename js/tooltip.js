@@ -145,9 +145,9 @@ const toolTip = {
         inter.style.padding = "5px 0";
         inter.style.paddingLeft = "5px";
         inter.addEventListener("click", toolTip.delete)
-        for (let i = 0; i < 20; i++) {
-
-            inter.append(toolTip.crFunc.crSearchItem())
+        let keys = Object.keys(localStorage);
+        for (let key of keys) {
+            inter.append(toolTip.crFunc.crSearchItem(JSON.parse(localStorage.getItem(key))))
         }
         tooltip.append(inter)
         document.body.append(tooltip)
