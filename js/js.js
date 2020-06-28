@@ -98,6 +98,8 @@ function setDateInfo() {
     function setInfo(ob, el) {
         let h = document.createElement('div');
         let d = document.createElement('div');
+        h.classList.add("headDateInfo")
+        d.classList.add("discriptDateInfo")
         h.innerHTML = ob.header;
         d.innerHTML = ob.discription;
         el.append(h)

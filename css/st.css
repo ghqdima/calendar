@@ -138,6 +138,7 @@ table .bg {
 
 table td {
   border: 0.5px solid #d4d4d4;
+  max-width: 100px;
   width: 100px;
   height: 150px;
   vertical-align: top;
@@ -160,7 +161,12 @@ table .info:hover {
 
 table .week-day-info {
   height: 120px;
-  border: 1px solid;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+table .week-day-info .headDateInfo {
+  font-weight: bold;
 }
 
 .tooltip {
