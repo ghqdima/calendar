@@ -71,7 +71,7 @@ const toolTip = {
             let text = document.createElement("textarea");
             text.placeholder = "Описание";
             text.dataset.inp = "discription";
-            if (ob.discription) text.value = ob.discription;
+            if (ob && ob.discription) text.value = ob.discription;
             return text;
         },
         crSearchItem(ob) {
@@ -97,6 +97,23 @@ const toolTip = {
             inter.append(d)
             item.append(inter)
             return item;
+        },
+        save(e) {
+            let et = e.target;
+            let tt = et.closest(".inter").querySelectorAll("[data-inp]")
+            for (let i = 0; i < tt.length; i++) {
+                toolTip.toolData[tt[i].dataset.inp] = tt[i].value;
+            }
+
+            function isObFull(ob) {
+                for (let i in ob) {
+                    if (ob[i] && i != "autoDate") return true;
+                }
+            }
+            toolTip.toolData.autoDate = toolTip.turnTarget.dataset.day;
+            if (isObFull(toolTip.toolData)) {
+                localStorage.setItem(toolTip.turnTarget.dataset.day, JSON.stringify(toolTip.toolData))
+            }
         }
     },
     createCalToolTip(date) {
@@ -109,38 +126,21 @@ const toolTip = {
         toolTip.crFunc.crInput([{
             i: "Событие",
             ob: "header",
-            v: date.header
+            v: date && date.header
         }, {
             i: "День, месяц, год",
             ob: "date",
-            v: date.date
+            v: date && date.date
         }, {
             i: "Имена участников",
             ob: "people",
-            v: date.people
+            v: date && date.people
         }], inter)
         inter.append(toolTip.crFunc.crDel())
         inter.append(toolTip.crFunc.crText(date))
         toolTip.crFunc.crBtns([{
             i: "Готово",
-            c: [(e) => {
-                let et = e.target;
-                let tt = et.closest(".inter").querySelectorAll("[data-inp]")
-                for (let i = 0; i < tt.length; i++) {
-                    toolTip.toolData[tt[i].dataset.inp] = tt[i].value;
-                }
-
-                function isObFull(ob) {
-                    for (let i in ob) {
-                        if (ob[i] && i != "autoDate") return true;
-                    }
-                }
-                toolTip.toolData.autoDate = toolTip.turnTarget.dataset.day;
-                if (isObFull(toolTip.toolData)) {
-                    localStorage.setItem(toolTip.turnTarget.dataset.day, JSON.stringify(toolTip.toolData))
-                }
-
-            }, toolTip.delete]
+            c: [toolTip.crFunc.save, toolTip.delete]
         }, {
             i: "Удалить",
             c: [(e) => {
@@ -156,9 +156,18 @@ const toolTip = {
         let inter = document.createElement("div");
         tooltip.classList.add("tooltip")
         inter.classList.add("inter")
-        toolTip.crFunc.crInput(["Событие"], inter)
+        inter.dataset.day = setDataDay(new Date);
+        toolTip.crFunc.crInput([{
+            i: "Событие",
+            ob: "header"
+        }], inter)
         inter.append(toolTip.crFunc.crDel())
-        toolTip.crFunc.crBtns(["Создать"], inter)
+        toolTip.crFunc.crBtns([{
+            i: "Создать",
+            c: [
+                toolTip.crFunc.save
+            ]
+        }], inter)
         tooltip.append(inter)
         document.body.append(tooltip)
         return tooltip

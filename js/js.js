@@ -43,6 +43,16 @@ function changeDate(e) {
 
 }
 
+function setDataDay(ob) {
+    let m = ob.getMonth();
+    m++;
+    m = (m > 9) ? m : "0" + m;
+    let d = ob.getDate();
+    let y = ob.getFullYear();
+    return "" + y + "-" + m + "-" + d;
+
+}
+
 function setMonthTable(y, m) {
 
     function getMonthDate(d) {
@@ -54,15 +64,7 @@ function setMonthTable(y, m) {
         if (ob.y == y && ob.m == m) return ob.d
     }
 
-    function setDataDay(ob) {
-        let m = ob.getMonth();
-        m++;
-        m = (m > 9) ? m : "0" + m;
-        let d = ob.getDate();
-        let y = ob.getFullYear();
-        return "" + y + "-" + m + "-" + d;
 
-    }
 
     function setWeekDayInfo(i, np) {
         let el = month_menu.domTable[i].querySelector(".week-day");
