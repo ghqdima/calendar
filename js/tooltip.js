@@ -164,7 +164,7 @@ const toolTip = {
         toolTip.crFunc.crBtns([{
             i: "Создать",
             c: [
-                toolTip.crFunc.save
+                toolTip.crFunc.save, toolTip.delete
             ]
         }], inter)
         tooltip.append(inter)
