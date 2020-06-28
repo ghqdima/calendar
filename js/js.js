@@ -129,8 +129,9 @@ function update() {
 }
 
 function ttDel(e) {
-    let et = e.target.closest(".tooltip")
-    if (toolTip.tt && toolTip.tt != et) toolTip.delete()
+    let et = e.target;
+    let tt = et.closest(".tooltip");
+    if (toolTip.tt && toolTip.tt != tt && toolTip.turnTarget != et) toolTip.delete()
 }
 
 init()
