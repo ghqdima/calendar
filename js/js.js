@@ -15,6 +15,7 @@ function init(e) {
     month_menu.initDate.m = month_menu.dateMonth;
     month_menu.initDate.d = month_menu.dateNow.getDate()
     setMonthTable(month_menu.dateNow.getFullYear(), month_menu.dateMonth)
+    document.body.addEventListener("click", ttDel)
 }
 
 function setMonthDate() {
@@ -125,6 +126,11 @@ function setDateInfo() {
 
 function update() {
     setMonthDate()
+}
+
+function ttDel(e) {
+    let et = e.target.closest(".tooltip")
+    if (toolTip.tt && toolTip.tt != et) toolTip.delete()
 }
 
 init()

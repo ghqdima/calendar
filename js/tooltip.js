@@ -182,7 +182,7 @@ const toolTip = {
     setCalendar(e) {
         let et = e.target.closest(".week-day-info");
         if (!toolTip.tt && toolTip.turnTarget != et) {
-
+            e.stopPropagation()
             if (et.className == "week-day-info") {
                 toolTip.turnTarget = et;
                 let coords = toolTip.turnTarget.getBoundingClientRect()
@@ -208,7 +208,7 @@ const toolTip = {
     setAddButton(e) {
         let et = e.target;
         if (!toolTip.tt && toolTip.turnTarget != et) {
-
+            e.stopPropagation()
             if (et.id == "addBtn") {
                 toolTip.turnTarget = et;
                 let coords = toolTip.turnTarget.getBoundingClientRect()
@@ -234,7 +234,7 @@ const toolTip = {
         }
         let et = e.target;
         if (!toolTip.tt && toolTip.turnTarget != et) {
-
+            e.stopPropagation()
             if (et.id == "srch") {
                 toolTip.turnTarget = et;
                 let coords = toolTip.turnTarget.getBoundingClientRect()
