@@ -74,10 +74,11 @@ const toolTip = {
         },
         crSearchItem(ob) {
             function setDate(ob) {
+                let days = ["воскресенье", "понедельник", "вторник", "среда", "четверг", "пятница", "суббота"]
                 console.log(ob);
                 let date = new Date(ob).getDate()
                 let day = new Date(ob).getDay();
-                return date + " " + day;
+                return date + " " + days[day];
             }
             let item = document.createElement('div');
             let inter = document.createElement('div');
