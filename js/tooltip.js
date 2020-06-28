@@ -75,7 +75,6 @@ const toolTip = {
         crSearchItem(ob) {
             function setDate(ob) {
                 let days = ["воскресенье", "понедельник", "вторник", "среда", "четверг", "пятница", "суббота"]
-                console.log(ob);
                 let date = new Date(ob).getDate()
                 let day = new Date(ob).getDay();
                 return date + " " + days[day];
@@ -202,7 +201,6 @@ const toolTip = {
                     }
                 }
             }
-            console.log(month_menu.initDate.y, month_menu.initDate.m, et.dataset.day);
         }
     },
     setAddButton(e) {

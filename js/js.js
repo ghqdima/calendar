@@ -121,7 +121,6 @@ function setDateInfo() {
         }
 
     }
-    // localStorage.clear()
 }
 
 function update() {
