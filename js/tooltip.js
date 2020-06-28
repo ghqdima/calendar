@@ -30,7 +30,8 @@ const toolTip = {
         header: "",
         date: "",
         people: "",
-        discription: ""
+        discription: "",
+        autoDate: ""
     },
     crFunc: {
         crInput(n, t) {
@@ -72,6 +73,12 @@ const toolTip = {
             return text;
         },
         crSearchItem(ob) {
+            function setDate(ob) {
+                console.log(ob);
+                let date = new Date(ob).getDate()
+                let day = new Date(ob).getDay();
+                return date + " " + day;
+            }
             let item = document.createElement('div');
             let inter = document.createElement('div');
             let h = document.createElement('div');
@@ -82,7 +89,7 @@ const toolTip = {
             item.classList.add("searchItem")
             inter.classList.add("searchItem__Inter")
             h.innerHTML = ob.header;
-            d.innerHTML = ob.date;
+            d.innerHTML = ob.date ? ob.date : setDate(ob.autoDate);
             inter.append(h)
             inter.append(d)
             item.append(inter)
@@ -122,8 +129,10 @@ const toolTip = {
                         if (ob[i]) return true;
                     }
                 }
-                if (isObFull(toolTip.toolData))
+                if (isObFull(toolTip.toolData)) {
+                    toolTip.toolData.autoDate = toolTip.turnTarget.dataset.day;
                     localStorage.setItem(toolTip.turnTarget.dataset.day, JSON.stringify(toolTip.toolData))
+                }
 
             }, toolTip.delete]
         }, {
