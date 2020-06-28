@@ -116,7 +116,14 @@ const toolTip = {
                 for (let i = 0; i < tt.length; i++) {
                     toolTip.toolData[tt[i].dataset.inp] = tt[i].value;
                 }
-                localStorage.setItem(toolTip.turnTarget.dataset.day, JSON.stringify(toolTip.toolData))
+
+                function isObFull(ob) {
+                    for (let i in ob) {
+                        if (ob[i]) return true;
+                    }
+                }
+                if (isObFull(toolTip.toolData))
+                    localStorage.setItem(toolTip.turnTarget.dataset.day, JSON.stringify(toolTip.toolData))
 
             }, toolTip.delete]
         }, "Удалить"], inter)
