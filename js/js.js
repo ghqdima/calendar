@@ -75,6 +75,7 @@ function setMonthTable(y, m) {
         }
         el.innerHTML = d;
         elInfo.innerHTML = "";
+        elInfo.parentElement.style.backgroundColor = "";
         el.nextElementSibling.dataset.day = setDataDay(obDate);
     }
     if (!getToday()) {
@@ -113,6 +114,7 @@ function setDateInfo() {
         let ob = JSON.parse(localStorage.getItem(key));
         for (let i = 0; i < el.length; i++) {
             if (el[i].dataset.day == key) {
+                el[i].parentElement.style.backgroundColor = "rgb(228, 241, 249)";
                 setInfo(ob, el[i])
             }
 

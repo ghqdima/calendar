@@ -50,7 +50,9 @@ const toolTip = {
                 let el = document.createElement("button");
                 if (typeof i == "object") {
                     el.innerHTML = i.i;
-                    el.addEventListener("click", i.c)
+                    i.c.forEach(f => {
+                        el.addEventListener("click", f)
+                    });
                 } else {
                     el.innerHTML = i;
                 }
@@ -108,7 +110,7 @@ const toolTip = {
         inter.append(toolTip.crFunc.crText())
         toolTip.crFunc.crBtns([{
             i: "Готово",
-            c: (e) => {
+            c: [(e) => {
                 let et = e.target;
                 let tt = et.closest(".inter").querySelectorAll("[data-inp]")
                 for (let i = 0; i < tt.length; i++) {
@@ -116,7 +118,7 @@ const toolTip = {
                 }
                 localStorage.setItem(toolTip.turnTarget.dataset.day, JSON.stringify(toolTip.toolData))
 
-            }
+            }, toolTip.delete]
         }, "Удалить"], inter)
         tooltip.append(inter)
         document.body.append(tooltip)
@@ -156,7 +158,7 @@ const toolTip = {
         toolTip.tt = "";
     },
     setCalendar(e) {
-        let et = e.target;
+        let et = e.target.closest(".week-day-info");
         if (!toolTip.tt && toolTip.turnTarget != et) {
 
             if (et.className == "week-day-info") {
