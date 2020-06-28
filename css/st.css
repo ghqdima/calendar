@@ -172,7 +172,7 @@ table .week-day-info .headDateInfo {
 .tooltip {
   position: absolute;
   max-width: 350px;
-  min-height: 200px;
+  min-height: 50px;
   background-color: #fff;
   -webkit-box-shadow: 0 0 3px 3px #adadad;
           box-shadow: 0 0 3px 3px #adadad;
