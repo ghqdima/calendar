@@ -17,28 +17,25 @@ function init(e) {
     setMonthTable(month_menu.dateNow.getFullYear(), month_menu.dateMonth)
 }
 
-function changeDate(e) {
-    let np = e.target.dataset.np;
-
+function setMonthDate() {
     function setMonth(a) {
         month_menu.domMonth.innerHTML = month_menu.months[a]
         month_menu.domYear.innerHTML = month_menu.dateNow.getFullYear()
     }
+    let year = month_menu.dateNow.getFullYear()
+    let month = month_menu.dateNow.getMonth();
+    setMonth(month)
+    setMonthTable(year, month)
+}
 
-    function setMonthDate() {
-        let year = month_menu.dateNow.getFullYear()
-        let month = month_menu.dateNow.getMonth();
-        setMonth(month)
-        setMonthTable(year, month)
-    }
+function changeDate(e) {
+    let np = e.target.dataset.np;
     if (np == "n") {
         month_menu.dateNow.setMonth(month_menu.dateMonth += 1)
-        // setMonth(month_menu.dateNow.getMonth())
         setMonthDate()
         if (month_menu.dateMonth > 11) month_menu.dateMonth = 0;
     } else if (np == "p") {
         month_menu.dateNow.setMonth(month_menu.dateMonth -= 1)
-        // setMonth(month_menu.dateNow.getMonth())
         setMonthDate()
         if (month_menu.dateMonth < 0) month_menu.dateMonth = 11;
     }
@@ -124,5 +121,8 @@ function setDateInfo() {
     // localStorage.clear()
 }
 
+function update() {
+    setMonthDate()
+}
 
 init()
