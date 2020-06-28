@@ -156,7 +156,6 @@ const toolTip = {
         let inter = document.createElement("div");
         tooltip.classList.add("tooltip")
         inter.classList.add("inter")
-        inter.dataset.day = setDataDay(new Date);
         toolTip.crFunc.crInput([{
             i: "Событие",
             ob: "header"
@@ -230,6 +229,7 @@ const toolTip = {
         let et = e.target;
         if (!toolTip.tt && toolTip.turnTarget != et) {
             e.stopPropagation()
+            et.dataset.day = setDataDay(new Date);
             if (et.id == "addBtn") {
                 toolTip.turnTarget = et;
                 let coords = toolTip.turnTarget.getBoundingClientRect()
