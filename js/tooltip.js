@@ -40,6 +40,7 @@ const toolTip = {
                 if (typeof i == "object") {
                     el.dataset.inp = i.ob;
                     el.placeholder = i.i;
+                    if (i.v) el.value = i.v;
                 } else {
                     el.placeholder = i;
                 }
@@ -66,10 +67,11 @@ const toolTip = {
             del.onclick = toolTip.delete;
             return del;
         },
-        crText() {
+        crText(ob) {
             let text = document.createElement("textarea");
             text.placeholder = "Описание";
             text.dataset.inp = "discription";
+            if (ob.discription) text.value = ob.discription;
             return text;
         },
         crSearchItem(ob) {
@@ -97,8 +99,8 @@ const toolTip = {
             return item;
         }
     },
-    createCalToolTip() {
-
+    createCalToolTip(date) {
+        date = JSON.parse(localStorage.getItem(date));
         let tooltip = document.createElement("div");
         let inter = document.createElement("div");
         tooltip.classList.add("tooltip")
@@ -106,16 +108,19 @@ const toolTip = {
 
         toolTip.crFunc.crInput([{
             i: "Событие",
-            ob: "header"
+            ob: "header",
+            v: date.header
         }, {
             i: "День, месяц, год",
-            ob: "date"
+            ob: "date",
+            v: date.date
         }, {
             i: "Имена участников",
-            ob: "people"
+            ob: "people",
+            v: date.people
         }], inter)
         inter.append(toolTip.crFunc.crDel())
-        inter.append(toolTip.crFunc.crText())
+        inter.append(toolTip.crFunc.crText(date))
         toolTip.crFunc.crBtns([{
             i: "Готово",
             c: [(e) => {
@@ -194,7 +199,7 @@ const toolTip = {
             if (et.className == "week-day-info") {
                 toolTip.turnTarget = et;
                 let coords = toolTip.turnTarget.getBoundingClientRect()
-                toolTip.tt = toolTip.createCalToolTip();
+                toolTip.tt = toolTip.createCalToolTip(et.dataset.day);
                 if ((coords.bottom + pageYOffset) < 900) {
                     coordsToolTip.setStyleArrow(toolTip.tt, "arrowLeft1")
                     coordsToolTip.leftTop(toolTip.tt, coords)
