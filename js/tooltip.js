@@ -156,7 +156,7 @@ const toolTip = {
         toolTip.tt = "";
     },
     setCalendar(e) {
-        let et = e.target;
+        let et = e.target.closest(".week-day-info");
         if (!toolTip.tt && toolTip.turnTarget != et) {
 
             if (et.className == "week-day-info") {
