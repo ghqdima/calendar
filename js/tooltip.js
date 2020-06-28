@@ -209,6 +209,19 @@ const toolTip = {
         }
     },
     setSearch(e) {
+        function search(data) {
+            let tt = toolTip.tt.querySelector(".inter");
+            tt.innerHTML = "";
+            let keys = Object.keys(localStorage);
+            for (let key of keys) {
+                let ob = JSON.parse(localStorage.getItem(key))
+                let re = ob.header.match(new RegExp("^" + data, "i"))
+                if (re) {
+                    tt.append(toolTip.crFunc.crSearchItem(JSON.parse(localStorage.getItem(key))))
+
+                }
+            }
+        }
         let et = e.target;
         if (!toolTip.tt && toolTip.turnTarget != et) {
 
@@ -216,6 +229,9 @@ const toolTip = {
                 toolTip.turnTarget = et;
                 let coords = toolTip.turnTarget.getBoundingClientRect()
                 toolTip.tt = toolTip.createSearchToolTip();
+                et.oninput = function () {
+                    search(et.value)
+                }
                 coordsToolTip.setStyleArrow(toolTip.tt, "arrowTop1")
                 coordsToolTip.btnTop(toolTip.tt, coords);
             }
