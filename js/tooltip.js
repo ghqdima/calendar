@@ -90,6 +90,7 @@ const toolTip = {
             inter.classList.add("searchItem__Inter")
             h.innerHTML = ob.header;
             d.innerHTML = ob.date ? ob.date : setDate(ob.autoDate);
+            item.dataset.date = ob.autoDate;
             inter.append(h)
             inter.append(d)
             item.append(inter)
@@ -126,11 +127,11 @@ const toolTip = {
 
                 function isObFull(ob) {
                     for (let i in ob) {
-                        if (ob[i]) return true;
+                        if (ob[i] && i != "autoDate") return true;
                     }
                 }
+                toolTip.toolData.autoDate = toolTip.turnTarget.dataset.day;
                 if (isObFull(toolTip.toolData)) {
-                    toolTip.toolData.autoDate = toolTip.turnTarget.dataset.day;
                     localStorage.setItem(toolTip.turnTarget.dataset.day, JSON.stringify(toolTip.toolData))
                 }
 
@@ -164,10 +165,18 @@ const toolTip = {
         inter.classList.add("inter")
         inter.style.padding = "5px 0";
         inter.style.paddingLeft = "5px";
+        inter.addEventListener("click", (e) => {
+            let et = e.target.closest(".searchItem")
+            month_menu.dateNow = new Date(et.dataset.date)
+            setMonthDate()
+        })
         inter.addEventListener("click", toolTip.delete)
         let keys = Object.keys(localStorage);
+        let num = 0;
         for (let key of keys) {
-            inter.append(toolTip.crFunc.crSearchItem(JSON.parse(localStorage.getItem(key))))
+            num++
+            if (num < 20)
+                inter.append(toolTip.crFunc.crSearchItem(JSON.parse(localStorage.getItem(key))))
         }
         tooltip.append(inter)
         document.body.append(tooltip)
@@ -218,13 +227,18 @@ const toolTip = {
     },
     setSearch(e) {
         function search(data) {
+            function getData(ob) {
+                for (let i in ob) {
+                    if (ob[i].match(new RegExp("^" + data, "i")))
+                        return true;
+                }
+            }
             let tt = toolTip.tt.querySelector(".inter");
             tt.innerHTML = "";
             let keys = Object.keys(localStorage);
             for (let key of keys) {
                 let ob = JSON.parse(localStorage.getItem(key))
-                let re = ob.header.match(new RegExp("^" + data, "i"))
-                if (re) {
+                if (getData(ob)) {
                     tt.append(toolTip.crFunc.crSearchItem(JSON.parse(localStorage.getItem(key))))
 
                 }
