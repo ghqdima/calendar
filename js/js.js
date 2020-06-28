@@ -54,8 +54,10 @@ function setMonthTable(y, m) {
     }
 
     function setDataDay(ob) {
-        let d = ob.getDate();
         let m = ob.getMonth();
+        m++;
+        m = (m > 9) ? m : "0" + m;
+        let d = ob.getDate();
         let y = ob.getFullYear();
         return "" + y + "-" + m + "-" + d;
 
