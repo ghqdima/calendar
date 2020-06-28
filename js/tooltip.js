@@ -220,13 +220,18 @@ const toolTip = {
     },
     setSearch(e) {
         function search(data) {
+            function getData(ob) {
+                for (let i in ob) {
+                    if (ob[i].match(new RegExp("^" + data, "i")))
+                        return true;
+                }
+            }
             let tt = toolTip.tt.querySelector(".inter");
             tt.innerHTML = "";
             let keys = Object.keys(localStorage);
             for (let key of keys) {
                 let ob = JSON.parse(localStorage.getItem(key))
-                let re = ob.header.match(new RegExp("^" + data, "i"))
-                if (re) {
+                if (getData(ob)) {
                     tt.append(toolTip.crFunc.crSearchItem(JSON.parse(localStorage.getItem(key))))
 
                 }
