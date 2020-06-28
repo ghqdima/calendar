@@ -101,7 +101,7 @@ function setDateInfo() {
         h.classList.add("headDateInfo")
         d.classList.add("discriptDateInfo")
         h.innerHTML = ob.header;
-        d.innerHTML = ob.discription;
+        d.innerHTML = ob.people;
         el.append(h)
         el.append(d)
     }
