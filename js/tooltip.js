@@ -166,6 +166,11 @@ const toolTip = {
         inter.classList.add("inter")
         inter.style.padding = "5px 0";
         inter.style.paddingLeft = "5px";
+        inter.addEventListener("click", (e) => {
+            let et = e.target.closest(".searchItem")
+            month_menu.dateNow = new Date(et.dataset.date)
+            setMonthDate()
+        })
         inter.addEventListener("click", toolTip.delete)
         let keys = Object.keys(localStorage);
         let num = 0;
