@@ -126,7 +126,12 @@ const toolTip = {
                     localStorage.setItem(toolTip.turnTarget.dataset.day, JSON.stringify(toolTip.toolData))
 
             }, toolTip.delete]
-        }, "Удалить"], inter)
+        }, {
+            i: "Удалить",
+            c: [(e) => {
+                localStorage.removeItem(toolTip.turnTarget.dataset.day)
+            }, toolTip.delete]
+        }], inter)
         tooltip.append(inter)
         document.body.append(tooltip)
         return tooltip
