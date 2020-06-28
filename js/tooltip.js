@@ -91,6 +91,7 @@ const toolTip = {
             inter.classList.add("searchItem__Inter")
             h.innerHTML = ob.header;
             d.innerHTML = ob.date ? ob.date : setDate(ob.autoDate);
+            item.dataset.date = ob.autoDate;
             inter.append(h)
             inter.append(d)
             item.append(inter)
@@ -127,11 +128,11 @@ const toolTip = {
 
                 function isObFull(ob) {
                     for (let i in ob) {
-                        if (ob[i]) return true;
+                        if (ob[i] && i != "autoDate") return true;
                     }
                 }
+                toolTip.toolData.autoDate = toolTip.turnTarget.dataset.day;
                 if (isObFull(toolTip.toolData)) {
-                    toolTip.toolData.autoDate = toolTip.turnTarget.dataset.day;
                     localStorage.setItem(toolTip.turnTarget.dataset.day, JSON.stringify(toolTip.toolData))
                 }
 
