@@ -19,13 +19,10 @@ function init(e) {
 }
 
 function setMonthDate() {
-    function setMonth(a) {
-        month_menu.domMonth.innerHTML = month_menu.months[a]
-        month_menu.domYear.innerHTML = month_menu.dateNow.getFullYear()
-    }
     let year = month_menu.dateNow.getFullYear()
     let month = month_menu.dateNow.getMonth();
-    setMonth(month)
+    month_menu.domMonth.innerHTML = month_menu.months[month]
+    month_menu.domYear.innerHTML = month_menu.dateNow.getFullYear()
     setMonthTable(year, month)
 }
 
