@@ -58,8 +58,8 @@ const toolTip = {
     crFunc: {
         crElems(el, c, i) {
             el = document.createElement(el);
-            el.classList.add(c);
-            el.innerHTML = i;
+            if (c) el.classList.add(c);
+            if (i) el.innerHTML = i;
             return el;
         },
         crInput(n, t) {
