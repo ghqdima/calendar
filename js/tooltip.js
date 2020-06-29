@@ -54,8 +54,14 @@ const toolTip = {
         if (isObFull(toolTip.toolData)) {
             localStorage.setItem(toolTip.turnTarget.dataset.day, JSON.stringify(toolTip.toolData))
         }
-    }
+    },
     crFunc: {
+        crElems(el, c, i) {
+            el = document.createElement(el);
+            el.classList.add(c);
+            el.innerHTML = i;
+            return el;
+        },
         crInput(n, t) {
             n.forEach(i => {
                 let el = document.createElement("input");
