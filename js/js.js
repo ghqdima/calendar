@@ -72,9 +72,34 @@ function setMonthTable(y, m) {
         let ob = mainTime.initDate;
         if (ob.y == y && ob.m == m) return ob.d
     }
+    //ставит информацию из localStorage
+    function setDateInfo() {
+        function setInfo(ob, el) {
+            let h = document.createElement('div');
+            let d = document.createElement('div');
+            h.classList.add("headDateInfo")
+            d.classList.add("discriptDateInfo")
+            h.innerHTML = ob.header;
+            d.innerHTML = ob.people;
+            el.append(h)
+            el.append(d)
+        }
 
+        let keys = Object.keys(localStorage);
+        let el = document.getElementsByTagName("table")[0].querySelectorAll(".week-day-info");
+        for (let key of keys) {
+            let ob = JSON.parse(localStorage.getItem(key));
+            for (let i = 0; i < el.length; i++) {
+                if (el[i].dataset.day == key) {
+                    el[i].parentElement.style.backgroundColor = "rgb(228, 241, 249)";
+                    setInfo(ob, el[i])
+                }
 
+            }
 
+        }
+    }
+    //ставит дату и bg в квадратик
     function setWeekDayInfo(i, np) {
         let el = month_menu.domTable[i].querySelector(".week-day");
         let elInfo = month_menu.domTable[i].querySelector(".week-day-info");
@@ -106,32 +131,7 @@ function setMonthTable(y, m) {
 
 }
 
-function setDateInfo() {
-    function setInfo(ob, el) {
-        let h = document.createElement('div');
-        let d = document.createElement('div');
-        h.classList.add("headDateInfo")
-        d.classList.add("discriptDateInfo")
-        h.innerHTML = ob.header;
-        d.innerHTML = ob.people;
-        el.append(h)
-        el.append(d)
-    }
 
-    let keys = Object.keys(localStorage);
-    let el = document.getElementsByTagName("table")[0].querySelectorAll(".week-day-info");
-    for (let key of keys) {
-        let ob = JSON.parse(localStorage.getItem(key));
-        for (let i = 0; i < el.length; i++) {
-            if (el[i].dataset.day == key) {
-                el[i].parentElement.style.backgroundColor = "rgb(228, 241, 249)";
-                setInfo(ob, el[i])
-            }
-
-        }
-
-    }
-}
 
 function update() {
     setMonthDate()
