@@ -3,6 +3,7 @@ html,
 body {
   margin: 0;
   padding: 0;
+  width: 100%;
 }
 
 .row {
@@ -32,6 +33,7 @@ header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  width: 100%;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -74,7 +76,6 @@ header .search {
 
 header .search * {
   padding: 5px;
-  width: 300px;
 }
 
 header .search .icon {
