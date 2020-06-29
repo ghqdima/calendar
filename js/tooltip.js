@@ -180,7 +180,7 @@ const toolTip = {
         inter.style.paddingLeft = "5px";
         inter.addEventListener("click", (e) => {
             let et = e.target.closest(".searchItem")
-            month_menu.dateNow = new Date(et.dataset.date)
+            mainTime.dateNow = new Date(et.dataset.date)
             setMonthDate()
         })
         inter.addEventListener("click", toolTip.delete)

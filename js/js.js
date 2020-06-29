@@ -1,39 +1,41 @@
-let month_menu = {
+const month_menu = {
     months: ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'],
-    dateNow: new Date(),
-    initDate: {},
     domMonth: document.querySelector('.month-menu > .month'),
     domYear: document.querySelector('.month-menu > .year'),
     domTable: document.querySelectorAll('table td'),
+}
+const mainTime = {
+    dateNow: new Date(),
+    initDate: {},
 }
 
 function init(e) {
     e && e.stopPropagation()
     month_menu.dateMonth = new Date().getMonth();
     month_menu.domMonth.innerHTML = month_menu.months[month_menu.dateMonth]
-    month_menu.domYear.innerHTML = month_menu.initDate.y = month_menu.dateNow.getFullYear()
-    month_menu.initDate.m = month_menu.dateMonth;
-    month_menu.initDate.d = month_menu.dateNow.getDate()
-    setMonthTable(month_menu.dateNow.getFullYear(), month_menu.dateMonth)
+    month_menu.domYear.innerHTML = mainTime.initDate.y = mainTime.dateNow.getFullYear()
+    mainTime.initDate.m = month_menu.dateMonth;
+    mainTime.initDate.d = mainTime.dateNow.getDate()
+    setMonthTable(mainTime.dateNow.getFullYear(), month_menu.dateMonth)
     document.body.addEventListener("click", ttDel)
 }
 
 function setMonthDate() {
-    let year = month_menu.dateNow.getFullYear()
-    let month = month_menu.dateNow.getMonth();
+    let year = mainTime.dateNow.getFullYear()
+    let month = mainTime.dateNow.getMonth();
     month_menu.domMonth.innerHTML = month_menu.months[month]
-    month_menu.domYear.innerHTML = month_menu.dateNow.getFullYear()
+    month_menu.domYear.innerHTML = mainTime.dateNow.getFullYear()
     setMonthTable(year, month)
 }
 
 function changeDate(e) {
     let np = e.target.dataset.np;
     if (np == "n") {
-        month_menu.dateNow.setMonth(month_menu.dateMonth += 1)
+        mainTime.dateNow.setMonth(month_menu.dateMonth += 1)
         setMonthDate()
         if (month_menu.dateMonth > 11) month_menu.dateMonth = 0;
     } else if (np == "p") {
-        month_menu.dateNow.setMonth(month_menu.dateMonth -= 1)
+        mainTime.dateNow.setMonth(month_menu.dateMonth -= 1)
         setMonthDate()
         if (month_menu.dateMonth < 0) month_menu.dateMonth = 11;
     }
@@ -57,7 +59,7 @@ function setMonthTable(y, m) {
     }
 
     function getToday() {
-        let ob = month_menu.initDate;
+        let ob = mainTime.initDate;
         if (ob.y == y && ob.m == m) return ob.d
     }
 
@@ -69,8 +71,8 @@ function setMonthTable(y, m) {
         let obDate = getMonthDate(np)
         let d = obDate.getDate();
         if (d == getToday()) {
-            month_menu.initDate.domDate = month_menu.domTable[i];
-            month_menu.initDate.domDate.classList.add("bg")
+            mainTime.initDate.domDate = month_menu.domTable[i];
+            mainTime.initDate.domDate.classList.add("bg")
         }
         el.innerHTML = d;
         elInfo.innerHTML = "";
@@ -78,7 +80,7 @@ function setMonthTable(y, m) {
         el.nextElementSibling.dataset.day = setDataDay(obDate);
     }
     if (!getToday()) {
-        month_menu.initDate.domDate && month_menu.initDate.domDate.classList.remove("bg")
+        mainTime.initDate.domDate && mainTime.initDate.domDate.classList.remove("bg")
     }
     let weekBegin = 7 - Math.abs(getMonthDate(1).getDay() - 7);
     weekBegin = weekBegin > 0 ? weekBegin - 1 : 6;
@@ -106,7 +108,6 @@ function setDateInfo() {
         el.append(d)
     }
 
-    let tableDate = month_menu.initDate.y + "-" + month_menu.initDate.m;
     let keys = Object.keys(localStorage);
     let el = document.getElementsByTagName("table")[0].querySelectorAll(".week-day-info");
     for (let key of keys) {
