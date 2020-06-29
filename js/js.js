@@ -18,11 +18,15 @@ function init(e) {
     }
     e && e.stopPropagation()
     mainTime.Month = new Date().getMonth();
-    month_menu.domMonth.innerHTML = month_menu.months[mainTime.Month]
-    month_menu.domYear.innerHTML = mainTime.initDate.y = mainTime.dateNow.getFullYear()
+
+    mainTime.initDate.y = new Date().getFullYear();
     mainTime.initDate.m = mainTime.Month;
-    mainTime.initDate.d = mainTime.dateNow.getDate()
-    setMonthTable(mainTime.dateNow.getFullYear(), mainTime.Month)
+    mainTime.initDate.d = mainTime.dateNow.getDate();
+
+    month_menu.domMonth.innerHTML = month_menu.months[mainTime.Month]
+    month_menu.domYear.innerHTML = mainTime.initDate.y;
+
+    setMonthTable(mainTime.initDate.y, mainTime.Month)
     document.body.addEventListener("click", ttDel)
 }
 
