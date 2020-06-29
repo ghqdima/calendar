@@ -33,6 +33,28 @@ const toolTip = {
         discription: "",
         autoDate: ""
     },
+    delete() {
+        toolTip.tt.remove();
+        toolTip.turnTarget = "";
+        toolTip.tt = "";
+    },
+    save(e) {
+        let et = e.target;
+        let tt = et.closest(".inter").querySelectorAll("[data-inp]")
+        for (let i = 0; i < tt.length; i++) {
+            toolTip.toolData[tt[i].dataset.inp] = tt[i].value;
+        }
+
+        function isObFull(ob) {
+            for (let i in ob) {
+                if (ob[i] && i != "autoDate") return true;
+            }
+        }
+        toolTip.toolData.autoDate = toolTip.turnTarget.dataset.day;
+        if (isObFull(toolTip.toolData)) {
+            localStorage.setItem(toolTip.turnTarget.dataset.day, JSON.stringify(toolTip.toolData))
+        }
+    }
     crFunc: {
         crInput(n, t) {
             n.forEach(i => {
@@ -97,23 +119,6 @@ const toolTip = {
             inter.append(d)
             item.append(inter)
             return item;
-        },
-        save(e) {
-            let et = e.target;
-            let tt = et.closest(".inter").querySelectorAll("[data-inp]")
-            for (let i = 0; i < tt.length; i++) {
-                toolTip.toolData[tt[i].dataset.inp] = tt[i].value;
-            }
-
-            function isObFull(ob) {
-                for (let i in ob) {
-                    if (ob[i] && i != "autoDate") return true;
-                }
-            }
-            toolTip.toolData.autoDate = toolTip.turnTarget.dataset.day;
-            if (isObFull(toolTip.toolData)) {
-                localStorage.setItem(toolTip.turnTarget.dataset.day, JSON.stringify(toolTip.toolData))
-            }
         }
     },
     createCalToolTip(date) {
@@ -140,7 +145,7 @@ const toolTip = {
         inter.append(toolTip.crFunc.crText(date))
         toolTip.crFunc.crBtns([{
             i: "Готово",
-            c: [toolTip.crFunc.save, toolTip.delete]
+            c: [toolTip.save, toolTip.delete]
         }, {
             i: "Удалить",
             c: [(e) => {
@@ -164,7 +169,7 @@ const toolTip = {
         toolTip.crFunc.crBtns([{
             i: "Создать",
             c: [
-                toolTip.crFunc.save, toolTip.delete
+                toolTip.save, toolTip.delete
             ]
         }], inter)
         tooltip.append(inter)
@@ -194,11 +199,6 @@ const toolTip = {
         tooltip.append(inter)
         document.body.append(tooltip)
         return tooltip
-    },
-    delete() {
-        toolTip.tt.remove();
-        toolTip.turnTarget = "";
-        toolTip.tt = "";
     },
     setCalendar(e) {
         let et = e.target.closest(".week-day-info");
