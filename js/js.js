@@ -6,17 +6,23 @@ const month_menu = {
 }
 const mainTime = {
     dateNow: new Date(),
+    Month: "",
     initDate: {},
 }
 
 function init(e) {
+    function ttDel(e) {
+        let et = e.target;
+        let tt = et.closest(".tooltip");
+        if (toolTip.tt && toolTip.tt != tt && toolTip.turnTarget != et) toolTip.delete()
+    }
     e && e.stopPropagation()
-    month_menu.dateMonth = new Date().getMonth();
-    month_menu.domMonth.innerHTML = month_menu.months[month_menu.dateMonth]
+    mainTime.Month = new Date().getMonth();
+    month_menu.domMonth.innerHTML = month_menu.months[mainTime.Month]
     month_menu.domYear.innerHTML = mainTime.initDate.y = mainTime.dateNow.getFullYear()
-    mainTime.initDate.m = month_menu.dateMonth;
+    mainTime.initDate.m = mainTime.Month;
     mainTime.initDate.d = mainTime.dateNow.getDate()
-    setMonthTable(mainTime.dateNow.getFullYear(), month_menu.dateMonth)
+    setMonthTable(mainTime.dateNow.getFullYear(), mainTime.Month)
     document.body.addEventListener("click", ttDel)
 }
 
@@ -31,13 +37,13 @@ function setMonthDate() {
 function changeDate(e) {
     let np = e.target.dataset.np;
     if (np == "n") {
-        mainTime.dateNow.setMonth(month_menu.dateMonth += 1)
+        mainTime.dateNow.setMonth(mainTime.Month += 1)
         setMonthDate()
-        if (month_menu.dateMonth > 11) month_menu.dateMonth = 0;
+        if (mainTime.Month > 11) mainTime.Month = 0;
     } else if (np == "p") {
-        mainTime.dateNow.setMonth(month_menu.dateMonth -= 1)
+        mainTime.dateNow.setMonth(mainTime.Month -= 1)
         setMonthDate()
-        if (month_menu.dateMonth < 0) month_menu.dateMonth = 11;
+        if (mainTime.Month < 0) mainTime.Month = 11;
     }
 
 }
@@ -127,10 +133,6 @@ function update() {
     setMonthDate()
 }
 
-function ttDel(e) {
-    let et = e.target;
-    let tt = et.closest(".tooltip");
-    if (toolTip.tt && toolTip.tt != tt && toolTip.turnTarget != et) toolTip.delete()
-}
+
 
 init()
