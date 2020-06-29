@@ -109,17 +109,12 @@ const toolTip = {
                 let day = new Date(ob).getDay();
                 return date + " " + days[day];
             }
-            let item = document.createElement('div');
-            let inter = document.createElement('div');
-            let h = document.createElement('div');
-            let d = document.createElement('small');
-            let gradi = document.createElement('div');
-            gradi.classList.add("gradi")
+            let item = this.crElems("div", "searchItem");
+            let inter = this.crElems("div", "searchItem__Inter")
+            let h = this.crElems("div", "", ob.header);
+            let d = this.crElems("small", "", ob.date ? ob.date : setDate(ob.autoDate));
+            let gradi = this.crElems("div", "gradi")
             inter.append(gradi)
-            item.classList.add("searchItem")
-            inter.classList.add("searchItem__Inter")
-            h.innerHTML = ob.header;
-            d.innerHTML = ob.date ? ob.date : setDate(ob.autoDate);
             item.dataset.date = ob.autoDate;
             inter.append(h)
             inter.append(d)
