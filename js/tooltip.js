@@ -122,81 +122,10 @@ const toolTip = {
             return item;
         }
     },
-    createCalToolTip(date) {
-        date = JSON.parse(localStorage.getItem(date));
-        let tooltip = document.createElement("div");
-        let inter = document.createElement("div");
-        tooltip.classList.add("tooltip")
-        inter.classList.add("inter")
-
-        toolTip.crFunc.crInput([{
-            i: "Событие",
-            ob: "header",
-            v: date && date.header
-        }, {
-            i: "День, месяц, год",
-            ob: "date",
-            v: date && date.date
-        }, {
-            i: "Имена участников",
-            ob: "people",
-            v: date && date.people
-        }], inter)
-        inter.append(toolTip.crFunc.crDel())
-        inter.append(toolTip.crFunc.crText(date))
-        toolTip.crFunc.crBtns([{
-            i: "Готово",
-            c: [toolTip.save, toolTip.delete]
-        }, {
-            i: "Удалить",
-            c: [(e) => {
-                localStorage.removeItem(toolTip.turnTarget.dataset.day)
-            }, toolTip.delete]
-        }], inter)
-        tooltip.append(inter)
-        document.body.append(tooltip)
-        return tooltip
-    },
-    createAddButtonToolTip() {
-        let tooltip = document.createElement("div");
-        let inter = document.createElement("div");
-        tooltip.classList.add("tooltip")
-        inter.classList.add("inter")
-        toolTip.crFunc.crInput([{
-            i: "Событие",
-            ob: "header"
-        }], inter)
-        inter.append(toolTip.crFunc.crDel())
-        toolTip.crFunc.crBtns([{
-            i: "Создать",
-            c: [
-                toolTip.save, toolTip.delete
-            ]
-        }], inter)
-        tooltip.append(inter)
-        document.body.append(tooltip)
-        return tooltip
-    },
-    createSearchToolTip() {
-        let tooltip = document.createElement("div");
-        let inter = document.createElement("div");
-        tooltip.classList.add("tooltip")
-        inter.classList.add("inter")
-        inter.style.padding = "5px 0";
-        inter.style.paddingLeft = "5px";
-        inter.addEventListener("click", (e) => {
-            let et = e.target.closest(".searchItem")
-            month_menu.dateNow = new Date(et.dataset.date)
-            setMonthDate()
-        })
-        inter.addEventListener("click", toolTip.delete)
-        let keys = Object.keys(localStorage);
-        let num = 0;
-        for (let key of keys) {
-            num++
-            if (num < 20)
-                inter.append(toolTip.crFunc.crSearchItem(JSON.parse(localStorage.getItem(key))))
-        }
+    createToolTip(f) {
+        let tooltip = this.crFunc.crElems("div", "tooltip")
+        let inter = this.crFunc.crElems("div", "inter")
+        f(inter)
         tooltip.append(inter)
         document.body.append(tooltip)
         return tooltip
@@ -206,9 +135,39 @@ const toolTip = {
         if (!toolTip.tt && toolTip.turnTarget != et) {
             e.stopPropagation()
             if (et.className == "week-day-info") {
+                function CalToolTip(inter, date) {
+                    ob = JSON.parse(localStorage.getItem(date));
+
+                    toolTip.crFunc.crInput([{
+                        i: "Событие",
+                        ob: "header",
+                        v: ob && ob.header
+                    }, {
+                        i: "День, месяц, год",
+                        ob: "date",
+                        v: ob && ob.date
+                    }, {
+                        i: "Имена участников",
+                        ob: "people",
+                        v: ob && ob.people
+                    }], inter)
+                    inter.append(toolTip.crFunc.crDel())
+                    inter.append(toolTip.crFunc.crText(ob))
+                    toolTip.crFunc.crBtns([{
+                        i: "Готово",
+                        c: [toolTip.save, toolTip.delete]
+                    }, {
+                        i: "Удалить",
+                        c: [(e) => {
+                            localStorage.removeItem(toolTip.turnTarget.dataset.day)
+                        }, toolTip.delete]
+                    }], inter)
+                }
                 toolTip.turnTarget = et;
                 let coords = toolTip.turnTarget.getBoundingClientRect()
-                toolTip.tt = toolTip.createCalToolTip(et.dataset.day);
+                toolTip.tt = toolTip.createToolTip((inter) => {
+                    CalToolTip(inter, et.dataset.day)
+                });
                 if ((coords.bottom + pageYOffset) < 900) {
                     coordsToolTip.setStyleArrow(toolTip.tt, "arrowLeft1")
                     coordsToolTip.leftTop(toolTip.tt, coords)
@@ -232,9 +191,22 @@ const toolTip = {
             e.stopPropagation()
             et.dataset.day = setDataDay(new Date);
             if (et.id == "addBtn") {
+                function AddButtonToolTip(inter) {
+                    toolTip.crFunc.crInput([{
+                        i: "Событие",
+                        ob: "header"
+                    }], inter)
+                    inter.append(toolTip.crFunc.crDel())
+                    toolTip.crFunc.crBtns([{
+                        i: "Создать",
+                        c: [
+                            toolTip.save, toolTip.delete
+                        ]
+                    }], inter)
+                }
                 toolTip.turnTarget = et;
                 let coords = toolTip.turnTarget.getBoundingClientRect()
-                toolTip.tt = toolTip.createAddButtonToolTip();
+                toolTip.tt = toolTip.createToolTip(AddButtonToolTip);
                 coordsToolTip.setStyleArrow(toolTip.tt, "arrowTop1")
                 coordsToolTip.btnTop(toolTip.tt, coords);
             }
@@ -263,9 +235,26 @@ const toolTip = {
         if (!toolTip.tt && toolTip.turnTarget != et) {
             e.stopPropagation()
             if (et.id == "srch") {
+                function SearchToolTip(inter) {
+                    inter.style.padding = "5px 0";
+                    inter.style.paddingLeft = "5px";
+                    inter.addEventListener("click", (e) => {
+                        let et = e.target.closest(".searchItem")
+                        month_menu.dateNow = new Date(et.dataset.date)
+                        setMonthDate()
+                    })
+                    inter.addEventListener("click", toolTip.delete)
+                    let keys = Object.keys(localStorage);
+                    let num = 0;
+                    for (let key of keys) {
+                        num++
+                        if (num < 20)
+                            inter.append(toolTip.crFunc.crSearchItem(JSON.parse(localStorage.getItem(key))))
+                    }
+                }
                 toolTip.turnTarget = et;
                 let coords = toolTip.turnTarget.getBoundingClientRect()
-                toolTip.tt = toolTip.createSearchToolTip();
+                toolTip.tt = toolTip.createToolTip(SearchToolTip);
                 et.oninput = function () {
                     search(et.value)
                 }
