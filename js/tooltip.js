@@ -181,7 +181,7 @@ const toolTip = {
         inter.addEventListener("click", (e) => {
             let et = e.target.closest(".searchItem")
             mainTime.dateNow = new Date(et.dataset.date)
-            setMonthDate()
+            mainTime.setMonthDate()
         })
         inter.addEventListener("click", toolTip.delete)
         let keys = Object.keys(localStorage);
@@ -229,7 +229,7 @@ const toolTip = {
         let et = e.target;
         if (!toolTip.tt && toolTip.turnTarget != et) {
             e.stopPropagation()
-            et.dataset.day = setDataDay(new Date);
+            et.dataset.day = mainTime.setDataDay(new Date);
             if (et.id == "addBtn") {
                 toolTip.turnTarget = et;
                 let coords = toolTip.turnTarget.getBoundingClientRect()
